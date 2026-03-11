@@ -34,46 +34,65 @@ const projects = [
 export default function ProjectsPage() {
   return (
     <main>
-      <section className="border-b">
-        <div className="max-w-7xl mx-auto px-4 py-14 md:py-18">
-          <p className="text-sm uppercase tracking-wide opacity-60">Projects</p>
-          <h1 className="text-4xl md:text-5xl font-semibold mt-3">
+      <section className="border-b border-[color:var(--border)] bg-gradient-to-b from-white to-[color:var(--soft-2)]">
+        <div className="container-shell py-14 md:py-18">
+          <p className="section-kicker">Projects</p>
+          <h1 className="section-title mt-3">
             Project and Work Showcase
           </h1>
-          <p className="max-w-3xl mt-5 text-base md:text-lg opacity-75 leading-7">
+          <p className="max-w-3xl mt-5 text-base md:text-lg text-[color:var(--text-muted)] leading-7">
             A modern overview of the kinds of machinery supply, fabrication, and
             support work Pembe Machinery can present to customers.
           </p>
         </div>
       </section>
 
-      <section className="max-w-7xl mx-auto px-4 py-14">
+      <section className="container-shell py-14">
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map((project, index) => (
-            <div key={`${project.title}-${index}`} className="rounded-2xl border overflow-hidden">
-              <div className="aspect-[4/3] bg-gray-100 flex items-center justify-center text-sm opacity-60">
-                Project Image Placeholder
-              </div>
-              <div className="p-5">
-                <div className="text-xs uppercase tracking-wide opacity-60">
-                  {project.category}
+          {projects.map((project, index) => {
+            const colors = [
+              "var(--pembe-purple)",
+              "var(--pembe-green)",
+              "var(--pembe-magenta)",
+            ];
+            const color = colors[index % colors.length];
+
+            return (
+              <div key={`${project.title}-${index}`} className="soft-card overflow-hidden">
+                <div
+                  className="aspect-[4/3] flex items-center justify-center text-sm text-white font-medium"
+                  style={{ background: `linear-gradient(135deg, ${color}, rgba(15,23,42,0.78))` }}
+                >
+                  Project Showcase
                 </div>
-                <h2 className="text-xl font-semibold mt-2">{project.title}</h2>
-                <p className="text-sm opacity-75 mt-3 leading-6">{project.text}</p>
+                <div className="p-5">
+                  <div
+                    className="text-xs uppercase tracking-wide font-medium"
+                    style={{ color }}
+                  >
+                    {project.category}
+                  </div>
+                  <h2 className="text-xl font-semibold mt-2 text-slate-900">
+                    {project.title}
+                  </h2>
+                  <p className="text-sm text-[color:var(--text-muted)] mt-3 leading-6">
+                    {project.text}
+                  </p>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </section>
 
-      <section className="bg-gray-50 border-y">
-        <div className="max-w-7xl mx-auto px-4 py-14">
+      <section className="border-y border-[color:var(--border)] bg-[color:var(--soft-2)]">
+        <div className="container-shell py-14">
           <div className="max-w-3xl">
-            <p className="text-sm uppercase tracking-wide opacity-60">Presentation Value</p>
-            <h2 className="text-3xl font-semibold mt-2">
+            <p className="section-kicker">Presentation Value</p>
+            <h2 className="section-title mt-2">
               Why a Projects Page Matters
             </h2>
-            <p className="text-sm opacity-75 mt-4 leading-7">
+            <p className="text-sm text-[color:var(--text-muted)] mt-4 leading-7">
               A strong projects section helps customers trust the brand, understand
               the type of work handled, and visualize the practical business value
               of the machinery and fabrication services being offered.
@@ -81,37 +100,45 @@ export default function ProjectsPage() {
           </div>
 
           <div className="grid md:grid-cols-3 gap-6 mt-8">
-            <div className="rounded-2xl border bg-white p-6">
-              <h3 className="font-semibold">Builds Credibility</h3>
-              <p className="text-sm opacity-75 mt-3 leading-6">
-                Customers want evidence of real capability and delivery experience.
-              </p>
-            </div>
-
-            <div className="rounded-2xl border bg-white p-6">
-              <h3 className="font-semibold">Supports Sales</h3>
-              <p className="text-sm opacity-75 mt-3 leading-6">
-                Showcasing relevant work makes it easier for clients to inquire with confidence.
-              </p>
-            </div>
-
-            <div className="rounded-2xl border bg-white p-6">
-              <h3 className="font-semibold">Improves Brand Positioning</h3>
-              <p className="text-sm opacity-75 mt-3 leading-6">
-                It helps present Pembe Machinery as an active, capable, modern provider.
-              </p>
-            </div>
+            {[
+              {
+                title: "Builds Credibility",
+                text: "Customers want evidence of real capability and delivery experience.",
+                color: "var(--pembe-purple)",
+              },
+              {
+                title: "Supports Sales",
+                text: "Showcasing relevant work makes it easier for clients to inquire with confidence.",
+                color: "var(--pembe-green)",
+              },
+              {
+                title: "Improves Brand Positioning",
+                text: "It helps present Pembe Machinery as an active, capable, modern provider.",
+                color: "var(--pembe-magenta)",
+              },
+            ].map((item) => (
+              <div key={item.title} className="soft-card p-6">
+                <div
+                  className="h-2 w-16 rounded-full"
+                  style={{ background: item.color }}
+                />
+                <h3 className="font-semibold mt-4 text-slate-900">{item.title}</h3>
+                <p className="text-sm text-[color:var(--text-muted)] mt-3 leading-6">
+                  {item.text}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      <section className="max-w-7xl mx-auto px-4 py-14">
-        <div className="rounded-3xl border p-8 md:p-10 flex flex-col md:flex-row justify-between gap-6">
+      <section className="container-shell py-14">
+        <div className="soft-card p-8 md:p-10 flex flex-col md:flex-row justify-between gap-6">
           <div className="max-w-2xl">
-            <h2 className="text-2xl font-semibold">
+            <h2 className="text-2xl font-semibold text-[color:var(--pembe-purple)]">
               Want to discuss a similar project or machine requirement?
             </h2>
-            <p className="text-sm opacity-75 mt-3 leading-6">
+            <p className="text-sm text-[color:var(--text-muted)] mt-3 leading-6">
               Send a quick WhatsApp message and describe what you need.
             </p>
           </div>
@@ -120,7 +147,7 @@ export default function ProjectsPage() {
             href="https://wa.me/254721772520?text=Hello%20Pembe%20Machinery,%20I%20would%20like%20to%20discuss%20a%20project%20or%20machine%20requirement."
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex rounded-xl bg-black text-white px-5 py-3 font-medium h-fit"
+            className="ui-button ui-button-green h-fit"
           >
             Start a Project Enquiry
           </a>

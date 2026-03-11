@@ -44,19 +44,18 @@ export default async function ProductDetailPage({
   const productUrl = `${siteUrl}/products/${product.slug}`;
 
   return (
-    <main className="max-w-6xl mx-auto px-4 py-8">
+    <main className="container-shell py-10">
       <div className="grid lg:grid-cols-2 gap-8">
         <div>
-          <div className="rounded-3xl border overflow-hidden bg-gray-100">
+          <div className="rounded-3xl border border-[color:var(--border)] overflow-hidden bg-[color:var(--soft)] shadow-sm">
             {images[0] ? (
-              // eslint-disable-next-line @next/next/no-img-element
               <img
                 src={images[0]}
                 alt={product.name}
                 className="w-full h-auto object-cover"
               />
             ) : (
-              <div className="aspect-[4/3] flex items-center justify-center text-sm opacity-60">
+              <div className="aspect-[4/3] flex items-center justify-center text-sm text-[color:var(--text-muted)]">
                 No image available
               </div>
             )}
@@ -67,9 +66,8 @@ export default async function ProductDetailPage({
               {images.slice(1, 7).map((image, idx) => (
                 <div
                   key={idx}
-                  className="rounded-2xl border overflow-hidden bg-gray-100"
+                  className="rounded-2xl border border-[color:var(--border)] overflow-hidden bg-[color:var(--soft)]"
                 >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={image}
                     alt={`${product.name} ${idx + 2}`}
@@ -82,36 +80,44 @@ export default async function ProductDetailPage({
         </div>
 
         <div>
-          <div className="text-sm uppercase tracking-wide opacity-60">
+          <div className="text-sm uppercase tracking-wide text-[color:var(--text-muted)]">
             {product.category?.name ?? "Machinery"}
           </div>
 
-          <h1 className="text-3xl md:text-4xl font-semibold mt-2">
+          <h1 className="text-3xl md:text-4xl font-semibold mt-2 text-slate-900">
             {product.name}
           </h1>
 
           {product.summary ? (
-            <p className="text-lg opacity-80 mt-4">{product.summary}</p>
+            <p className="text-lg text-[color:var(--text-muted)] mt-4">
+              {product.summary}
+            </p>
           ) : null}
 
           <div className="mt-6">
             {product.priceOnRequest ? (
-              <div className="inline-flex rounded-full bg-amber-50 text-amber-800 px-4 py-2 text-sm font-medium border border-amber-200">
+              <div className="inline-flex rounded-full px-4 py-2 text-sm font-medium border bg-[rgba(194,24,122,0.08)] text-[color:var(--pembe-magenta)] border-[rgba(194,24,122,0.16)]">
                 Price on request
               </div>
             ) : formatPrice(product.price, product.currency) ? (
-              <div className="text-2xl font-semibold text-slate-800">
+              <div className="text-2xl font-semibold text-[color:var(--pembe-purple)]">
                 {formatPrice(product.price, product.currency)}
               </div>
             ) : (
-              <div className="text-sm text-gray-500">Contact for pricing</div>
+              <div className="text-sm text-[color:var(--text-muted)]">
+                Contact for pricing
+              </div>
             )}
           </div>
 
           {product.description ? (
             <div className="mt-6">
-              <h2 className="text-lg font-semibold">Description</h2>
-              <p className="opacity-80 mt-2 leading-7">{product.description}</p>
+              <h2 className="text-lg font-semibold text-[color:var(--pembe-purple)]">
+                Description
+              </h2>
+              <p className="text-[color:var(--text-muted)] mt-2 leading-7">
+                {product.description}
+              </p>
             </div>
           ) : null}
 
@@ -123,7 +129,7 @@ export default async function ProductDetailPage({
 
             <a
               href="tel:0721772520"
-              className="inline-flex items-center justify-center rounded-xl px-4 py-2 border"
+              className="inline-flex items-center justify-center rounded-xl px-4 py-2 border border-[color:var(--border)] bg-white"
             >
               Call Now
             </a>
@@ -133,19 +139,21 @@ export default async function ProductDetailPage({
 
       {specs ? (
         <section className="mt-12">
-          <h2 className="text-2xl font-semibold">Specifications</h2>
+          <h2 className="text-2xl font-semibold text-[color:var(--pembe-purple)]">
+            Specifications
+          </h2>
 
-          <div className="mt-4 rounded-2xl border overflow-hidden">
-            <div className="divide-y">
+          <div className="mt-4 rounded-3xl border border-[color:var(--border)] overflow-hidden bg-white shadow-sm">
+            <div className="divide-y divide-[color:var(--border)]">
               {Object.entries(specs).map(([key, value]) => (
                 <div
                   key={key}
                   className="grid grid-cols-1 md:grid-cols-[220px_1fr] gap-2 px-4 py-3"
                 >
-                  <div className="font-medium capitalize">
+                  <div className="font-medium capitalize text-slate-900">
                     {key.replace(/_/g, " ")}
                   </div>
-                  <div className="opacity-80">
+                  <div className="text-[color:var(--text-muted)]">
                     {typeof value === "string"
                       ? value
                       : JSON.stringify(value)}

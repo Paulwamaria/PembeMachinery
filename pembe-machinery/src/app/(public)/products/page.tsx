@@ -17,12 +17,12 @@ export default async function ProductsPage({
   ]);
 
   return (
-    <main className="max-w-7xl mx-auto px-4 py-8">
+    <main className="container-shell py-10">
       <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
         <div>
-          <p className="text-sm uppercase tracking-wide opacity-60">Catalogue</p>
-          <h1 className="text-3xl font-semibold">Products</h1>
-          <p className="mt-2 text-sm opacity-70">
+          <p className="section-kicker">Catalogue</p>
+          <h1 className="section-title mt-2">Products</h1>
+          <p className="mt-3 text-sm md:text-base text-[color:var(--text-muted)]">
             Browse available machinery, fabrication solutions, and spare parts.
           </p>
         </div>
@@ -31,7 +31,7 @@ export default async function ProductsPage({
           <select
             name="category"
             defaultValue={category ?? ""}
-            className="border rounded-xl px-3 py-2"
+            className="ui-input"
           >
             <option value="">All categories</option>
             {categories.map((c) => (
@@ -45,10 +45,10 @@ export default async function ProductsPage({
             name="q"
             defaultValue={q ?? ""}
             placeholder="Search machines..."
-            className="border rounded-xl px-3 py-2 min-w-[240px]"
+            className="ui-input min-w-[240px]"
           />
 
-          <button className="border rounded-xl px-4 py-2">
+          <button className="ui-button ui-button-dark">
             Filter
           </button>
         </form>
@@ -58,29 +58,47 @@ export default async function ProductsPage({
         <Link
           href="/products"
           className={`rounded-full border px-3 py-1 text-sm ${
-            !category ? "bg-black text-white" : ""
+            !category
+              ? "text-white border-transparent"
+              : "bg-white border-[color:var(--border)] text-slate-700"
           }`}
+          style={!category ? { background: "var(--pembe-purple)" } : {}}
         >
           All
         </Link>
 
-        {categories.map((c) => (
-          <Link
-            key={c.id}
-            href={`/products?category=${c.slug}`}
-            className={`rounded-full border px-3 py-1 text-sm ${
-              category === c.slug ? "bg-black text-white" : ""
-            }`}
-          >
-            {c.name}
-          </Link>
-        ))}
+        {categories.map((c, index) => {
+          const isActive = category === c.slug;
+          const colors = [
+            "var(--pembe-purple)",
+            "var(--pembe-green)",
+            "var(--pembe-magenta)",
+          ];
+          const activeColor = colors[index % colors.length];
+
+          return (
+            <Link
+              key={c.id}
+              href={`/products?category=${c.slug}`}
+              className={`rounded-full border px-3 py-1 text-sm ${
+                isActive
+                  ? "text-white border-transparent"
+                  : "bg-white border-[color:var(--border)] text-slate-700"
+              }`}
+              style={isActive ? { background: activeColor } : {}}
+            >
+              {c.name}
+            </Link>
+          );
+        })}
       </div>
 
       {products.length === 0 ? (
-        <div className="mt-10 rounded-2xl border p-8 text-center">
-          <h2 className="text-xl font-medium">No products found</h2>
-          <p className="text-sm opacity-70 mt-2">
+        <div className="mt-10 rounded-3xl border border-[color:var(--border)] bg-white p-8 text-center shadow-sm">
+          <h2 className="text-xl font-medium text-[color:var(--pembe-purple)]">
+            No products found
+          </h2>
+          <p className="text-sm text-[color:var(--text-muted)] mt-2">
             Try changing the category or search term.
           </p>
         </div>
