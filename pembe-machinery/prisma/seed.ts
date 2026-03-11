@@ -1,8 +1,26 @@
-import { PrismaClient } from "@prisma/client";
+import "dotenv/config";
+import { prisma } from "../src/lib/prisma.ts";
+import bcrypt from "bcryptjs";
 
-const prisma = new PrismaClient();
 
 async function main() {
+  // ✅ 0) Create / Update Admin
+  const adminEmail = process.env.ADMIN_EMAIL;
+  const adminPassword = process.env.ADMIN_PASSWORD;
+
+  if (!adminEmail || !adminPassword) {
+    throw new Error("Missing ADMIN_EMAIL or ADMIN_PASSWORD in .env");
+  }
+
+  const passwordHash = await bcrypt.hash(adminPassword, 10);
+
+  await prisma.user.upsert({
+    where: { email: adminEmail },
+    update: { passwordHash, role: "ADMIN" },
+    create: { email: adminEmail, passwordHash, role: "ADMIN" },
+  });
+
+  // ✅ 1) Categories
   const categories = [
     { slug: "posho-mills", name: "Posho Mills" },
     { slug: "maize-shellers", name: "Maize Shellers" },
@@ -25,6 +43,7 @@ async function main() {
 
   if (!posho || !shellers) throw new Error("Categories missing");
 
+  // ✅ 2) Products
   await prisma.product.upsert({
     where: { slug: "electric-posho-mill-standard" },
     update: {},
@@ -41,9 +60,7 @@ async function main() {
         output: "Approx. 80–120kg/hr",
         voltage: "Single phase",
       },
-      images: [
-        "https://via.placeholder.com/900x700.png?text=Posho+Mill",
-      ],
+      images: ["https://via.placeholder.com/900x700.png?text=Posho+Mill"],
     },
   });
 
@@ -62,11 +79,11 @@ async function main() {
         power: "Petrol/Diesel option",
         output: "High throughput",
       },
-      images: [
-        "https://via.placeholder.com/900x700.png?text=Maize+Sheller",
-      ],
+      images: ["https://via.placeholder.com/900x700.png?text=Maize+Sheller"],
     },
   });
+
+  console.log(`✅ Seed complete. Admin: ${adminEmail}`);
 }
 
 main()
