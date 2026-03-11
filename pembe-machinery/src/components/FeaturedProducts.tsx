@@ -8,13 +8,13 @@ export default async function FeaturedProducts() {
   if (!products.length) return null;
 
   return (
-    <section className="section-space bg-gray-50 border-y border-gray-200">
+    <section className="section-space border-y border-[color:var(--border)] bg-[color:var(--soft-2)]">
       <div className="container-shell">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
           <div>
             <p className="section-kicker">Featured</p>
             <h2 className="section-title mt-2">Popular Machinery</h2>
-            <p className="mt-3 text-sm md:text-base text-gray-600">
+            <p className="mt-3 text-sm md:text-base text-[color:var(--text-muted)]">
               Highlighted machines ready for customer enquiries.
             </p>
           </div>

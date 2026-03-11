@@ -1,17 +1,19 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f7f8fa;
-  --foreground: #111827;
-  --muted: #6b7280;
-  --border: #d8dee6;
+  --background: #f6f7fb;
+  --foreground: #1b1f2a;
+
+  --pembe-purple: #5b2ca3;
+  --pembe-purple-light: #7a3ec8;
+  --pembe-green: #2dbe3f;
+  --pembe-magenta: #c2187a;
+
+  --text-muted: #667085;
+  --border: #dde3ee;
   --card: #ffffff;
-  --soft: #eef2f7;
-  --brand: #1f2937;
-  --brand-2: #334155;
-  --accent: #dbeafe;
-  --accent-strong: #1d4ed8;
-  --warm: #fff7ed;
+  --soft: #eef2ff;
+  --soft-2: #f4f7fb;
 }
 
 html {
@@ -20,8 +22,9 @@ html {
 
 body {
   background:
-    radial-gradient(circle at top left, rgba(219, 234, 254, 0.45), transparent 28%),
-    linear-gradient(to bottom, #f8fafc, #f3f4f6);
+    radial-gradient(circle at top left, rgba(91, 44, 163, 0.10), transparent 28%),
+    radial-gradient(circle at top right, rgba(45, 190, 63, 0.08), transparent 24%),
+    linear-gradient(to bottom, #fafbff, #f3f5fa);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -34,6 +37,10 @@ img {
   display: block;
 }
 
+a {
+  transition: 0.2s ease;
+}
+
 .container-shell {
   @apply max-w-7xl mx-auto px-4;
 }
@@ -44,21 +51,23 @@ img {
 
 .section-title {
   @apply text-3xl md:text-4xl font-semibold tracking-tight;
+  color: var(--pembe-purple);
 }
 
 .section-kicker {
-  @apply text-xs md:text-sm uppercase tracking-[0.18em] text-gray-500;
+  @apply text-xs md:text-sm uppercase tracking-[0.18em];
+  color: var(--text-muted);
 }
 
 .soft-card {
   @apply rounded-3xl border shadow-sm;
-  background: linear-gradient(to bottom, #ffffff, #f9fafb);
+  background: linear-gradient(to bottom, #ffffff, #f9fbff);
   border-color: var(--border);
 }
 
 .soft-panel {
   @apply rounded-3xl border;
-  background: linear-gradient(to bottom, #f8fafc, #eef2f7);
+  background: linear-gradient(to bottom, #f8faff, #eef3fb);
   border-color: var(--border);
 }
 
@@ -67,16 +76,58 @@ img {
 }
 
 .ui-button-dark {
-  @apply text-white hover:opacity-90;
-  background: linear-gradient(to right, #111827, #1f2937);
+  @apply text-white hover:opacity-95;
+  background: linear-gradient(135deg, var(--pembe-purple), var(--pembe-purple-light));
 }
 
 .ui-button-light {
   @apply border hover:bg-white;
-  border-color: #cbd5e1;
-  background: #f8fafc;
+  border-color: #cfd8ea;
+  background: #f8fbff;
+  color: var(--foreground);
+}
+
+.ui-button-green {
+  @apply text-white hover:opacity-95;
+  background: linear-gradient(135deg, #22a934, var(--pembe-green));
 }
 
 .ui-input {
-  @apply w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-gray-500;
+  @apply w-full rounded-xl border px-4 py-3 outline-none;
+  border-color: #cfd8ea;
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.ui-input:focus {
+  border-color: var(--pembe-purple);
+  box-shadow: 0 0 0 3px rgba(91, 44, 163, 0.08);
+}
+
+.brand-chip {
+  @apply inline-flex rounded-full border px-4 py-1.5 text-xs uppercase tracking-[0.18em];
+  border-color: rgba(91, 44, 163, 0.18);
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--pembe-purple);
+}
+
+.brand-badge {
+  @apply inline-flex rounded-full px-3 py-1 text-xs font-medium;
+}
+
+.brand-badge-purple {
+  background: rgba(91, 44, 163, 0.10);
+  color: var(--pembe-purple);
+  border: 1px solid rgba(91, 44, 163, 0.15);
+}
+
+.brand-badge-green {
+  background: rgba(45, 190, 63, 0.10);
+  color: #18862a;
+  border: 1px solid rgba(45, 190, 63, 0.18);
+}
+
+.brand-badge-magenta {
+  background: rgba(194, 24, 122, 0.08);
+  color: var(--pembe-magenta);
+  border: 1px solid rgba(194, 24, 122, 0.16);
 }

@@ -12,19 +12,19 @@ export default async function HeroSection() {
   ];
 
   return (
-    <section className="border-b border-gray-200 bg-gradient-to-b from-white to-gray-50">
+    <section className="border-b border-[color:var(--border)] bg-gradient-to-b from-white to-[#f7f8fd]">
       <div className="container-shell py-14 md:py-20">
         <div className="grid lg:grid-cols-2 gap-10 items-center">
           <div>
-            <div className="inline-flex rounded-full border border-gray-200 bg-white px-4 py-1.5 text-xs uppercase tracking-[0.18em] text-gray-600">
+            <div className="brand-chip">
               Machinery • Fabrication • Support
             </div>
 
-            <h1 className="mt-6 text-4xl md:text-6xl font-semibold tracking-tight leading-tight">
+            <h1 className="mt-6 text-4xl md:text-6xl font-semibold tracking-tight leading-tight text-slate-900">
               Modern Machinery Solutions for Real Business Use
             </h1>
 
-            <p className="mt-5 max-w-2xl text-base md:text-lg text-gray-600 leading-8">
+            <p className="mt-5 max-w-2xl text-base md:text-lg leading-8 text-[color:var(--text-muted)]">
               Pembe Machinery supplies quality agricultural and processing machinery,
               spare parts, and fabrication support with a faster, cleaner customer
               experience built around direct enquiries and practical service.
@@ -39,7 +39,7 @@ export default async function HeroSection() {
                 href="https://wa.me/254721772520?text=Hello%20Pembe%20Machinery,%20I%20would%20like%20to%20request%20a%20quote."
                 target="_blank"
                 rel="noopener noreferrer"
-                className="ui-button ui-button-light"
+                className="ui-button ui-button-green"
               >
                 Request Quote
               </a>
@@ -47,18 +47,18 @@ export default async function HeroSection() {
 
             <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div className="soft-card p-5">
-                <div className="text-2xl font-semibold">6+</div>
-                <div className="mt-1 text-sm text-gray-500">Core Categories</div>
+                <div className="text-2xl font-semibold text-[color:var(--pembe-purple)]">6+</div>
+                <div className="mt-1 text-sm text-[color:var(--text-muted)]">Core Categories</div>
               </div>
 
               <div className="soft-card p-5">
-                <div className="text-2xl font-semibold">Fast</div>
-                <div className="mt-1 text-sm text-gray-500">WhatsApp Quotes</div>
+                <div className="text-2xl font-semibold text-[color:var(--pembe-green)]">Fast</div>
+                <div className="mt-1 text-sm text-[color:var(--text-muted)]">WhatsApp Quotes</div>
               </div>
 
               <div className="soft-card p-5">
-                <div className="text-2xl font-semibold">Kenya</div>
-                <div className="mt-1 text-sm text-gray-500">Nationwide Reach</div>
+                <div className="text-2xl font-semibold text-[color:var(--pembe-magenta)]">Kenya</div>
+                <div className="mt-1 text-sm text-[color:var(--text-muted)]">Nationwide Reach</div>
               </div>
             </div>
           </div>
@@ -79,20 +79,19 @@ export default async function HeroSection() {
                 >
                   {item?.image ? (
                     <div className="relative h-full min-h-[220px]">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={item.image}
                         alt={item.name}
                         className="h-full w-full object-cover"
                       />
-                      <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-4">
+                      <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 to-transparent p-4">
                         <div className="text-white text-sm font-medium">
                           {item.name}
                         </div>
                       </div>
                     </div>
                   ) : (
-                    <div className="h-full w-full bg-gray-100 flex items-center justify-center text-sm text-gray-500">
+                    <div className="h-full w-full bg-[color:var(--soft)] flex items-center justify-center text-sm text-[color:var(--text-muted)]">
                       Product Image
                     </div>
                   )}

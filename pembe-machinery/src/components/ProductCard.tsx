@@ -38,53 +38,54 @@ export default function ProductCard({ product }: { product: Product }) {
   return (
     <Link
       href={`/products/${product.slug}`}
-      className="group block overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-sm hover:shadow-md transition"
+      className="group block overflow-hidden rounded-3xl border border-[color:var(--border)] bg-white shadow-sm hover:shadow-md transition"
     >
-      <div className="aspect-[4/3] overflow-hidden bg-gray-100">
+      <div className="aspect-[4/3] overflow-hidden bg-[color:var(--soft)]">
         {image ? (
-          // eslint-disable-next-line @next/next/no-img-element
           <img
             src={image}
             alt={product.name}
             className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.03]"
           />
         ) : (
-          <div className="flex h-full w-full items-center justify-center text-sm text-gray-500">
+          <div className="flex h-full w-full items-center justify-center text-sm text-[color:var(--text-muted)]">
             No image
           </div>
         )}
       </div>
 
       <div className="p-5">
-        <div className="text-xs uppercase tracking-wide text-gray-500">
+        <div className="text-xs uppercase tracking-wide text-[color:var(--text-muted)]">
           {product.category?.name ?? "Machinery"}
         </div>
 
-        <h3 className="mt-2 text-lg font-semibold tracking-tight">
+        <h3 className="mt-2 text-lg font-semibold tracking-tight text-slate-900">
           {product.name}
         </h3>
 
         {product.summary ? (
-          <p className="mt-3 text-sm text-gray-600 leading-6 line-clamp-2">
+          <p className="mt-3 text-sm leading-6 text-[color:var(--text-muted)] line-clamp-2">
             {product.summary}
           </p>
         ) : null}
 
         <div className="mt-4">
           {product.priceOnRequest ? (
-            <div className="inline-flex rounded-full border border-amber-200 bg-amber-50 px-3 py-1 text-sm font-medium text-amber-800">
+            <div className="inline-flex rounded-full border px-3 py-1 text-sm font-medium bg-[rgba(194,24,122,0.08)] text-[color:var(--pembe-magenta)] border-[rgba(194,24,122,0.16)]">
               Price on request
             </div>
           ) : formatPrice(product.price, product.currency) ? (
-            <div className="text-base font-semibold text-slate-800">
+            <div className="text-base font-semibold text-[color:var(--pembe-purple)]">
               {formatPrice(product.price, product.currency)}
             </div>
           ) : (
-            <div className="text-sm text-gray-500">Contact for pricing</div>
+            <div className="text-sm text-[color:var(--text-muted)]">Contact for pricing</div>
           )}
         </div>
 
-        <div className="mt-5 text-sm font-medium">View details →</div>
+        <div className="mt-5 text-sm font-medium text-[color:var(--pembe-green)]">
+          View details →
+        </div>
       </div>
     </Link>
   );

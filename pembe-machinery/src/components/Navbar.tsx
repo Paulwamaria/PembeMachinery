@@ -11,42 +11,39 @@ const links = [
 
 export default function Navbar() {
   return (
-    <header className="sticky top-0 z-50 border-b border-gray-200 bg-white/90 backdrop-blur-md">
+    <header className="sticky top-0 z-50 border-b border-[color:var(--border)] bg-white/85 backdrop-blur-md">
       <div className="container-shell">
-        <div className="flex min-h-[72px] items-center justify-between gap-4">
-
-          {/* Logo */}
+        <div className="flex min-h-[76px] items-center justify-between gap-4">
           <Link href="/" className="flex items-center gap-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-slate-900 text-white font-bold">
-              PM
-            </div>
+            <img
+              src="/logo.svg"
+              alt="Pembe Machinery"
+              className="h-11 w-auto"
+            />
 
-            <div>
-              <div className="font-semibold tracking-tight">
+            <div className="hidden sm:block">
+              <div className="font-semibold tracking-tight text-[color:var(--pembe-purple)]">
                 Pembe Machinery
               </div>
-              <div className="text-xs text-gray-500">
+              <div className="text-xs text-[color:var(--text-muted)]">
                 Machinery & Fabrication
               </div>
             </div>
           </Link>
 
-          {/* Desktop Nav */}
           <nav className="hidden lg:flex items-center gap-7">
             {links.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-sm font-medium text-gray-700 hover:text-black transition"
+                className="text-sm font-medium text-slate-700 hover:text-[color:var(--pembe-purple)]"
               >
                 {link.label}
               </Link>
             ))}
           </nav>
 
-          {/* Actions */}
           <div className="flex items-center gap-2">
-
             <a
               href="tel:0721772520"
               className="hidden sm:inline-flex ui-button ui-button-light text-sm"
@@ -57,22 +54,21 @@ export default function Navbar() {
             <a
               href="https://wa.me/254721772520"
               target="_blank"
+              rel="noopener noreferrer"
               className="ui-button ui-button-dark text-sm"
             >
               Get Quote
             </a>
-
           </div>
         </div>
 
-        {/* Mobile Nav */}
         <div className="lg:hidden pb-3">
           <div className="flex gap-2 overflow-x-auto">
             {links.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="whitespace-nowrap rounded-full border border-gray-200 bg-white px-3 py-1.5 text-sm"
+                className="whitespace-nowrap rounded-full border border-[color:var(--border)] bg-white px-3 py-1.5 text-sm text-slate-700"
               >
                 {link.label}
               </Link>

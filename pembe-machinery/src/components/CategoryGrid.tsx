@@ -16,27 +16,36 @@ export default function CategoryGrid() {
         <div className="max-w-2xl">
           <p className="section-kicker">Categories</p>
           <h2 className="section-title mt-2">Explore Machinery by Category</h2>
-          <p className="mt-4 text-sm md:text-base text-gray-600 leading-7">
+          <p className="mt-4 text-sm md:text-base leading-7 text-[color:var(--text-muted)]">
             Quickly browse the main equipment lines available from Pembe Machinery.
           </p>
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-8">
-          {categories.map((category) => (
-            <Link
-              key={category.slug}
-              href={`/products?category=${category.slug}`}
-              className="soft-card p-6 hover:-translate-y-1 hover:shadow-md transition"
-            >
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-black text-white font-semibold shadow-sm">
-                {category.name.slice(0, 2).toUpperCase()}
-              </div>
+          {categories.map((category, i) => {
+            const accents = [
+              "bg-[color:var(--pembe-purple)]",
+              "bg-[color:var(--pembe-green)]",
+              "bg-[color:var(--pembe-magenta)]",
+            ];
+            const accent = accents[i % accents.length];
 
-              <h3 className="mt-5 text-lg font-semibold">{category.name}</h3>
-              <p className="mt-3 text-sm text-gray-600 leading-6">{category.desc}</p>
-              <div className="mt-5 text-sm font-medium text-gray-800">View category →</div>
-            </Link>
-          ))}
+            return (
+              <Link
+                key={category.slug}
+                href={`/products?category=${category.slug}`}
+                className="soft-card p-6 hover:-translate-y-1 hover:shadow-md transition"
+              >
+                <div className={`flex h-12 w-12 items-center justify-center rounded-2xl text-white font-semibold shadow-sm ${accent}`}>
+                  {category.name.slice(0, 2).toUpperCase()}
+                </div>
+
+                <h3 className="mt-5 text-lg font-semibold text-slate-900">{category.name}</h3>
+                <p className="mt-3 text-sm leading-6 text-[color:var(--text-muted)]">{category.desc}</p>
+                <div className="mt-5 text-sm font-medium text-[color:var(--pembe-purple)]">View category →</div>
+              </Link>
+            );
+          })}
         </div>
       </div>
     </section>
