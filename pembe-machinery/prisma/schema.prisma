@@ -51,14 +51,14 @@ model Product {
 }
 
 model ShowcaseVideo {
-  id           String   @id @default(cuid())
+  id           Int      @id @default(autoincrement())
   title        String
   caption      String?
   videoUrl     String
-  videoType    String   @default("upload") // upload | external
-  platform     String   @default("direct") // direct | youtube | facebook | vimeo
+  videoType    String
+  platform     String
   thumbnailUrl String?
-  featured     Boolean  @default(true)
+  featured     Boolean  @default(false)
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 }
