@@ -7,15 +7,27 @@ const CategorySchema = z.object({
 });
 
 export async function GET() {
-  const results = await prisma.category.findMany({ orderBy: { name: "asc" } });
-  return Response.json({ results });
+  const categories = await prisma.category.findMany({
+    orderBy: { name: "asc" },
+  });
+
+  return Response.json({ results: categories });
 }
 
 export async function POST(req: Request) {
   const body = await req.json().catch(() => null);
   const parsed = CategorySchema.safeParse(body);
-  if (!parsed.success) return Response.json({ error: "Invalid input" }, { status: 400 });
 
-  const created = await prisma.category.create({ data: parsed.data });
+  if (!parsed.success) {
+    return Response.json({ error: "Invalid input" }, { status: 400 });
+  }
+
+  const created = await prisma.category.create({
+    data: {
+      name: parsed.data.name,
+      slug: parsed.data.slug,
+    },
+  });
+
   return Response.json(created, { status: 201 });
 }
