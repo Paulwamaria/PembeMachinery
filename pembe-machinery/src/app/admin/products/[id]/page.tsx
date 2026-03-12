@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { slugify } from "@/lib/slug";
-import ProductImageUploader from "@/components/ProductImageUploader";
+import ProductImageSorter from "@/components/ProductImageSorter";
 
 type Category = {
   id: string;
@@ -61,7 +61,14 @@ export default function EditProductPage({
       setCategoryId(product.categoryId ?? "");
       setFeatured(!!product.featured);
       setInStock(!!product.inStock);
-      setImages(Array.isArray(product.images) ? product.images : []);
+      setImages(
+        Array.isArray(product.images)
+          ? product.images.filter(
+              (img: unknown): img is string =>
+                typeof img === "string" && img.trim().length > 0
+            )
+          : []
+      );
       setSpecsText(product.specs ? JSON.stringify(product.specs, null, 2) : "{\n  \n}");
       setPrice(product.price ? String(product.price) : "");
       setCurrency(product.currency ?? "KES");
@@ -73,6 +80,11 @@ export default function EditProductPage({
 
   async function save(e: React.FormEvent) {
     e.preventDefault();
+
+    if (!id) {
+      alert("Product ID missing");
+      return;
+    }
 
     let specs = null;
     try {
@@ -95,7 +107,6 @@ export default function EditProductPage({
         categoryId,
         featured,
         inStock,
-        images: images.length ? images : null,
         specs,
         price: price ? Number(price) : null,
         currency,
@@ -112,6 +123,11 @@ export default function EditProductPage({
   }
 
   async function remove() {
+    if (!id) {
+      alert("Product ID missing");
+      return;
+    }
+
     if (!confirm("Delete this product?")) return;
 
     const res = await fetch(`/api/admin/products/${id}`, {
@@ -140,7 +156,7 @@ export default function EditProductPage({
       </div>
 
       <form onSubmit={save} className="mt-6 space-y-4">
-        <div className="grid md:grid-cols-2 gap-3">
+        <div className="grid gap-3 md:grid-cols-2">
           <input
             className="ui-input"
             placeholder="Product name"
@@ -160,6 +176,7 @@ export default function EditProductPage({
           value={categoryId}
           onChange={(e) => setCategoryId(e.target.value)}
         >
+          <option value="">Select category</option>
           {categories.map((c) => (
             <option key={c.id} value={c.id}>
               {c.name}
@@ -167,7 +184,7 @@ export default function EditProductPage({
           ))}
         </select>
 
-        <div className="grid md:grid-cols-3 gap-3">
+        <div className="grid gap-3 md:grid-cols-3">
           <input
             className="ui-input"
             placeholder="Price"
@@ -182,7 +199,7 @@ export default function EditProductPage({
             value={currency}
             onChange={(e) => setCurrency(e.target.value)}
           />
-          <label className="flex items-center gap-2 rounded-xl border border-gray-300 px-3 py-3 bg-white">
+          <label className="flex items-center gap-2 rounded-xl border border-gray-300 bg-white px-3 py-3">
             <input
               type="checkbox"
               checked={priceOnRequest}
@@ -227,12 +244,12 @@ export default function EditProductPage({
         </div>
 
         <div>
-          <div className="font-medium mb-2">Product Images</div>
-          <ProductImageUploader value={images} onChange={setImages} />
+          <div className="mb-2 font-medium">Product Images</div>
+          <ProductImageSorter productId={id} initialImages={images} />
         </div>
 
         <div>
-          <div className="font-medium mb-1">Specs JSON</div>
+          <div className="mb-1 font-medium">Specs JSON</div>
           <textarea
             className="ui-input min-h-[160px] font-mono text-sm"
             value={specsText}
@@ -240,9 +257,7 @@ export default function EditProductPage({
           />
         </div>
 
-        <button className="ui-button ui-button-dark">
-          Save Changes
-        </button>
+        <button className="ui-button ui-button-dark">Save Changes</button>
       </form>
     </main>
   );
