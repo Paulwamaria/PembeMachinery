@@ -18,6 +18,11 @@ export default async function AdminDashboardPage() {
     include: { category: true },
   });
 
+  const inquiryCount = await prisma.inquiry.count();
+  const newInquiryCount = await prisma.inquiry.count({
+    where: { status: "new" },
+  });
+
   return (
     <main>
       <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
@@ -44,24 +49,35 @@ export default async function AdminDashboardPage() {
       </div>
 
       <section className="grid sm:grid-cols-2 xl:grid-cols-4 gap-4 mt-8">
-        <div className="soft-card p-5">
+        <div className="rounded-3xl border border-[color:var(--border)] bg-[linear-gradient(to_bottom,rgba(91,44,163,0.08),white)] p-5 shadow-sm">
           <div className="text-sm text-gray-500">Total Products</div>
           <div className="text-3xl font-semibold mt-2">{totalProducts}</div>
         </div>
 
-        <div className="soft-card p-5">
+        <div className="rounded-3xl border border-[color:var(--border)] bg-[linear-gradient(to_bottom,rgba(45,190,63,0.08),white)] p-5 shadow-sm">
           <div className="text-sm text-gray-500">Featured Products</div>
           <div className="text-3xl font-semibold mt-2">{featuredProducts}</div>
         </div>
 
-        <div className="soft-card p-5">
+        <div className="rounded-3xl border border-[color:var(--border)] bg-[linear-gradient(to_bottom,rgba(194,24,122,0.07),white)] p-5 shadow-sm">
           <div className="text-sm text-gray-500">In Stock</div>
           <div className="text-3xl font-semibold mt-2">{inStockProducts}</div>
         </div>
 
-        <div className="soft-card p-5">
+        <div className="rounded-3xl border border-[color:var(--border)] bg-[linear-gradient(to_bottom,rgba(91,44,163,0.05),rgba(45,190,63,0.05))] p-5 shadow-sm">
           <div className="text-sm text-gray-500">Categories</div>
           <div className="text-3xl font-semibold mt-2">{totalCategories}</div>
+        </div>
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          <div className="soft-card p-5">
+            <p className="text-sm text-slate-500">Total Inquiries</p>
+            <h3 className="mt-2 text-3xl font-bold">{inquiryCount}</h3>
+          </div>
+
+          <div className="soft-card p-5">
+            <p className="text-sm text-slate-500">New Inquiries</p>
+            <h3 className="mt-2 text-3xl font-bold">{newInquiryCount}</h3>
+          </div>
         </div>
       </section>
 

@@ -131,3 +131,12 @@ a {
   color: var(--pembe-magenta);
   border: 1px solid rgba(194, 24, 122, 0.16);
 }
+.ui-input::placeholder {
+  color: #98a2b3;
+}
+.admin-surface {
+  background: linear-gradient(to bottom, #ffffff, #f9fbff);
+  border: 1px solid var(--border);
+  border-radius: 1.5rem;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04);
+}

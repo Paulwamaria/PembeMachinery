@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import WhatsAppQuoteButton from "@/components/WhatsAppQuoteButton";
 import { getPublicProductBySlug } from "@/lib/public-data";
+import ProductInquiryForm from "@/components/ProductInquiryForm";
 
 export const dynamic = "force-dynamic";
 
@@ -125,6 +126,10 @@ export default async function ProductDetailPage({
             <WhatsAppQuoteButton
               productName={product.name}
               productUrl={productUrl}
+            />
+            <ProductInquiryForm
+              productId={product.id}
+              productName={product.name}
             />
 
             <a

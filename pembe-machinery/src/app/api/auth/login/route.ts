@@ -29,7 +29,7 @@ export async function POST(req: Request) {
 
     if (!user) {
       return NextResponse.json(
-        { error: "Invalid credentials" },
+        { error: "No admin account found with that email" },
         { status: 401 }
       );
     }
@@ -38,7 +38,7 @@ export async function POST(req: Request) {
 
     if (!ok) {
       return NextResponse.json(
-        { error: "Invalid credentials" },
+        { error: "Incorrect password" },
         { status: 401 }
       );
     }
@@ -66,6 +66,9 @@ export async function POST(req: Request) {
     return res;
   } catch (error) {
     console.error("LOGIN ERROR:", error);
-    return NextResponse.json({ error: "Login failed" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Login failed. Please try again." },
+      { status: 500 }
+    );
   }
 }

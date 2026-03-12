@@ -1,4 +1,8 @@
-export default function AboutPage() {
+import { getGalleryImages } from "@/lib/public-data";
+
+export default async function AboutPage() {
+  const gallery = await getGalleryImages(2);
+
   return (
     <main>
       <section className="border-b border-[color:var(--border)] bg-gradient-to-b from-white to-[color:var(--soft-2)]">
@@ -41,10 +45,27 @@ export default function AboutPage() {
           </div>
         </div>
 
-        <div className="soft-card overflow-hidden min-h-[360px]">
-          <div className="h-full w-full flex items-center justify-center text-sm text-[color:var(--text-muted)] bg-[linear-gradient(135deg,rgba(91,44,163,0.08),rgba(194,24,122,0.08))]">
-            Company / Workshop Image Placeholder
-          </div>
+        <div className="grid gap-4">
+          {gallery.length ? (
+            gallery.map((item) => (
+              <div
+                key={item.id}
+                className="soft-card overflow-hidden min-h-[220px]"
+              >
+                <img
+                  src={item.image!}
+                  alt={item.name}
+                  className="h-full w-full object-cover"
+                />
+              </div>
+            ))
+          ) : (
+            <div className="soft-card overflow-hidden min-h-[360px]">
+              <div className="h-full w-full flex items-center justify-center text-sm text-[color:var(--text-muted)] bg-[linear-gradient(135deg,rgba(91,44,163,0.08),rgba(194,24,122,0.08))]">
+                Company / Workshop Image
+              </div>
+            </div>
+          )}
         </div>
       </section>
     </main>
