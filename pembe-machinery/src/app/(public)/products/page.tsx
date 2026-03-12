@@ -1,112 +1,122 @@
 import Link from "next/link";
-import ProductCard from "@/components/ProductCard";
-import { getPublicCategories, getPublicProducts } from "@/lib/public-data";
+import ProductFilters from "@/components/ProductFilters";
+import { getAllCategories, getFilteredProducts } from "@/lib/public-data";
 
-export const dynamic = "force-dynamic";
+function formatMoney(currency: string, amount: string | number | null) {
+  if (!amount) return "Price on request";
+  return `${currency || "KES"} ${amount}`;
+}
+
+function getImage(images: any) {
+  if (!images) return null;
+  if (Array.isArray(images) && images.length > 0) return images[0];
+  return null;
+}
 
 export default async function ProductsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ category?: string; q?: string }>;
+  searchParams: Promise<{
+    q?: string;
+    category?: string;
+    in_stock?: string;
+    featured?: string;
+    min_price?: string;
+    max_price?: string;
+    sort?: string;
+  }>;
 }) {
-  const { category, q } = await searchParams;
+  const params = await searchParams;
 
   const [products, categories] = await Promise.all([
-    getPublicProducts({ category, q }),
-    getPublicCategories(),
+    getFilteredProducts(params),
+    getAllCategories(),
   ]);
 
   return (
-    <main className="container-shell py-10">
-      <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-        <div>
-          <p className="section-kicker">Catalogue</p>
-          <h1 className="section-title mt-2">Products</h1>
-          <p className="mt-3 text-sm md:text-base text-[color:var(--text-muted)]">
-            Browse available machinery, fabrication solutions, and spare parts.
-          </p>
-        </div>
-
-        <form className="flex flex-col sm:flex-row gap-2">
-          <select
-            name="category"
-            defaultValue={category ?? ""}
-            className="ui-input"
-          >
-            <option value="">All categories</option>
-            {categories.map((c) => (
-              <option key={c.id} value={c.slug}>
-                {c.name}
-              </option>
-            ))}
-          </select>
-
-          <input
-            name="q"
-            defaultValue={q ?? ""}
-            placeholder="Search machines..."
-            className="ui-input min-w-[240px]"
-          />
-
-          <button className="ui-button ui-button-dark">
-            Filter
-          </button>
-        </form>
+    <main className="mx-auto max-w-7xl px-4 py-10">
+      <div className="mb-8">
+        <p className="section-kicker">Marketplace</p>
+        <h1 className="section-title">Browse Machinery</h1>
+        <p className="mt-2 text-slate-600">
+          Search, compare, and request quotes for available machines.
+        </p>
       </div>
 
-      <div className="flex flex-wrap gap-2 mt-6">
-        <Link
-          href="/products"
-          className={`rounded-full border px-3 py-1 text-sm ${
-            !category
-              ? "text-white border-transparent"
-              : "bg-white border-[color:var(--border)] text-slate-700"
-          }`}
-          style={!category ? { background: "var(--pembe-purple)" } : {}}
-        >
-          All
-        </Link>
+      <div className="mb-6">
+        <ProductFilters categories={categories} />
+      </div>
 
-        {categories.map((c, index) => {
-          const isActive = category === c.slug;
-          const colors = [
-            "var(--pembe-purple)",
-            "var(--pembe-green)",
-            "var(--pembe-magenta)",
-          ];
-          const activeColor = colors[index % colors.length];
-
-          return (
-            <Link
-              key={c.id}
-              href={`/products?category=${c.slug}`}
-              className={`rounded-full border px-3 py-1 text-sm ${
-                isActive
-                  ? "text-white border-transparent"
-                  : "bg-white border-[color:var(--border)] text-slate-700"
-              }`}
-              style={isActive ? { background: activeColor } : {}}
-            >
-              {c.name}
-            </Link>
-          );
-        })}
+      <div className="mb-5 flex items-center justify-between">
+        <p className="text-sm text-slate-500">
+          {products.length} product{products.length === 1 ? "" : "s"} found
+        </p>
       </div>
 
       {products.length === 0 ? (
-        <div className="mt-10 rounded-3xl border border-[color:var(--border)] bg-white p-8 text-center shadow-sm">
-          <h2 className="text-xl font-medium text-[color:var(--pembe-purple)]">
-            No products found
-          </h2>
-          <p className="text-sm text-[color:var(--text-muted)] mt-2">
-            Try changing the category or search term.
+        <div className="soft-card p-10 text-center">
+          <h2 className="text-xl font-semibold">No products found</h2>
+          <p className="mt-2 text-slate-600">
+            Try adjusting your filters or search terms.
           </p>
         </div>
       ) : (
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-8">
-          {products.map((product) => (
-            <ProductCard key={product.id} product={product as any} />
-          ))}
+        <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+          {products.map((product) => {
+            const image = getImage(product.images);
+
+            return (
+              <Link
+                key={product.id}
+                href={`/products/${product.slug}`}
+                className="soft-card overflow-hidden transition hover:-translate-y-1"
+              >
+                <div className="aspect-[4/3] bg-slate-100">
+                  {image ? (
+                    <img
+                      src={image}
+                      alt={product.name}
+                      className="h-full w-full object-cover"
+                    />
+                  ) : (
+                    <div className="flex h-full items-center justify-center text-sm text-slate-400">
+                      No image
+                    </div>
+                  )}
+                </div>
+
+                <div className="p-4">
+                  <div className="mb-2 flex flex-wrap gap-2">
+                    {product.featured && (
+                      <span className="brand-badge">Featured</span>
+                    )}
+                    {product.inStock ? (
+                      <span className="brand-badge">In Stock</span>
+                    ) : (
+                      <span className="brand-badge">Out of Stock</span>
+                    )}
+                    {product.category && (
+                      <span className="brand-badge">{product.category.name}</span>
+                    )}
+                  </div>
+
+                  <h2 className="text-lg font-semibold">{product.name}</h2>
+
+                  {product.summary && (
+                    <p className="mt-2 line-clamp-2 text-sm text-slate-600">
+                      {product.summary}
+                    </p>
+                  )}
+
+                  <p className="mt-4 text-base font-bold">
+                    {product.priceOnRequest
+                      ? "Price on request"
+                      : formatMoney(product.currency, product.price?.toString() || null)}
+                  </p>
+                </div>
+              </Link>
+            );
+          })}
         </div>
       )}
     </main>

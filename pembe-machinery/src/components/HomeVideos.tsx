@@ -1,4 +1,6 @@
 import { prisma } from "@/lib/prisma";
+import VideoCard from "@/components/VideoCard";
+
 
 function getEmbedUrl(url: string, platform: string) {
     if (platform === "youtube") {
@@ -48,50 +50,10 @@ export default async function HomeVideos() {
                     </a>
                 </div>
 
-                <div className="grid lg:grid-cols-3 gap-6 mt-8">
-                    {videos.map((video) => {
-                        const embedUrl = getEmbedUrl(video.videoUrl, video.platform);
-
-                        return (
-                            <div key={video.id} className="soft-card p-4">
-                                {video.videoType === "upload" || video.platform === "direct" ? (
-                                    <video
-                                        src={video.videoUrl}
-                                        controls
-                                        className="w-full rounded-2xl border border-[color:var(--border)]"
-                                    />
-                                ) : video.platform === "facebook" ? (
-                                    <a
-                                        href={video.videoUrl}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="block rounded-2xl border border-[color:var(--border)] bg-white p-8 text-center text-sm text-[color:var(--pembe-purple)]"
-                                    >
-                                        Watch on Facebook
-                                    </a>
-                                ) : embedUrl ? (
-                                    <iframe
-                                        src={embedUrl}
-                                        className="w-full aspect-video rounded-2xl border border-[color:var(--border)]"
-                                        allowFullScreen
-                                    />
-                                ) : (
-                                    <div className="rounded-2xl border border-[color:var(--border)] bg-white p-6 text-sm text-[color:var(--text-muted)]">
-                                        Video unavailable
-                                    </div>
-                                )}
-
-                                <h3 className="mt-4 font-semibold text-slate-900">
-                                    {video.title}
-                                </h3>
-                                {video.caption ? (
-                                    <p className="mt-2 text-sm text-[color:var(--text-muted)] leading-6">
-                                        {video.caption}
-                                    </p>
-                                ) : null}
-                            </div>
-                        );
-                    })}
+                <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+                    {videos.map((video) => (
+                        <VideoCard key={video.id} video={video} />
+                    ))}
                 </div>
             </div>
         </section>

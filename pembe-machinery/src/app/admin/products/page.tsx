@@ -1,145 +1,137 @@
-"use client";
-
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import AdminProductFilters from "@/components/AdminProductFilters";
+import { getAdminCategories, getAdminProducts } from "@/lib/admin-data";
 
-type Product = {
-  id: string;
-  name: string;
-  slug: string;
-  featured: boolean;
-  inStock: boolean;
-  price?: string | number | null;
-  currency?: string | null;
-  priceOnRequest?: boolean;
-  category?: { name: string };
-};
-
-function formatPrice(price: unknown, currency?: string | null) {
-  if (price === null || price === undefined || price === "") return null;
-  const value = Number(price);
-  if (Number.isNaN(value)) return null;
-  return `${currency ?? "KES"} ${value.toLocaleString()}`;
+function formatMoney(currency: string, amount: string | null) {
+  if (!amount) return "Price on request";
+  return `${currency || "KES"} ${amount}`;
 }
 
-export default function AdminProductsPage() {
-  const [q, setQ] = useState("");
-  const [items, setItems] = useState<Product[]>([]);
+export default async function AdminProductsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{
+    q?: string;
+    category?: string;
+    in_stock?: string;
+    featured?: string;
+    sort?: string;
+  }>;
+}) {
+  const params = await searchParams;
 
-  async function load(query = "") {
-    const res = await fetch(`/api/admin/products?q=${encodeURIComponent(query)}`);
-    const data = await res.json();
-    setItems(data.results ?? []);
-  }
-
-  useEffect(() => {
-    load();
-  }, []);
+  const [products, categories] = await Promise.all([
+    getAdminProducts(params),
+    getAdminCategories(),
+  ]);
 
   return (
-    <main>
-      <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+    <div className="space-y-6">
+      <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
         <div>
-          <p className="text-sm uppercase tracking-[0.18em] text-gray-500">Admin</p>
-          <h1 className="text-2xl font-semibold tracking-tight mt-1">
-            Manage Products
-          </h1>
+          <p className="section-kicker">Admin</p>
+          <h1 className="section-title">Products</h1>
+          <p className="mt-2 text-slate-600">
+            Manage marketplace listings, stock status, and featured products.
+          </p>
         </div>
 
-        <div className="flex gap-2">
-          <input
-            className="ui-input w-full md:w-80"
-            placeholder="Search products..."
-            value={q}
-            onChange={(e) => setQ(e.target.value)}
-          />
-          <button
-            className="ui-button ui-button-light"
-            onClick={() => load(q)}
-          >
-            Search
-          </button>
-          <Link
-            href="/admin/products/new"
-            className="ui-button ui-button-dark"
-          >
-            New
-          </Link>
-        </div>
+        <Link href="/admin/products/new" className="ui-button-green">
+          New Product
+        </Link>
       </div>
 
-      <div className="mt-6 space-y-4">
-        {items.map((p) => (
-          <Link
-            key={p.id}
-            href={`/admin/products/${p.id}`}
-            className="block rounded-3xl border border-gray-200 bg-white p-5 shadow-sm hover:shadow-md transition"
-          >
-            <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-              <div className="min-w-0">
-                <div className="text-xs uppercase tracking-wide text-gray-500">
-                  {p.category?.name ?? "No category"}
-                </div>
+      <AdminProductFilters categories={categories} />
 
-                <div className="mt-1 text-lg font-semibold truncate">
-                  {p.name}
-                </div>
+      <div className="flex items-center justify-between">
+        <p className="text-sm text-slate-500">
+          {products.length} product{products.length === 1 ? "" : "s"} found
+        </p>
+      </div>
 
-                <div className="text-sm text-gray-500 mt-1 truncate">
-                  {p.slug}
-                </div>
-
-                <div className="flex flex-wrap gap-2 mt-3">
-                  {p.featured ? (
-                    <span className="inline-flex rounded-full border border-blue-200 bg-blue-50 px-3 py-1 text-xs font-medium text-blue-700">
-                      Featured
-                    </span>
-                  ) : null}
-
-                  {p.inStock ? (
-                    <span className="inline-flex rounded-full border border-green-200 bg-green-50 px-3 py-1 text-xs font-medium text-green-700">
-                      In stock
-                    </span>
-                  ) : (
-                    <span className="inline-flex rounded-full border border-gray-200 bg-gray-50 px-3 py-1 text-xs font-medium text-gray-600">
-                      Out of stock
-                    </span>
+      <div className="soft-card overflow-x-auto">
+        <table className="min-w-full text-sm">
+          <thead>
+            <tr className="border-b text-left">
+              <th className="p-3">Product</th>
+              <th className="p-3">Category</th>
+              <th className="p-3">Price</th>
+              <th className="p-3">Stock</th>
+              <th className="p-3">Featured</th>
+              <th className="p-3">Updated</th>
+              <th className="p-3">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {products.map((product) => (
+              <tr key={product.id} className="border-b align-top">
+                <td className="p-3">
+                  <div className="font-medium">{product.name}</div>
+                  <div className="text-xs text-slate-500">{product.slug}</div>
+                  {product.summary && (
+                    <div className="mt-1 max-w-xs text-xs text-slate-600">
+                      {product.summary}
+                    </div>
                   )}
-                </div>
-              </div>
+                </td>
 
-              <div className="md:text-right shrink-0">
-                {p.priceOnRequest ? (
-                  <div className="inline-flex rounded-full border border-amber-200 bg-amber-50 px-3 py-1 text-sm font-medium text-amber-800">
-                    Price on request
-                  </div>
-                ) : formatPrice(p.price, p.currency) ? (
-                  <div className="text-lg font-semibold text-slate-800">
-                    {formatPrice(p.price, p.currency)}
-                  </div>
-                ) : (
-                  <div className="text-sm text-gray-500">
-                    No price set
-                  </div>
-                )}
+                <td className="p-3">{product.category?.name || "-"}</td>
 
-                <div className="mt-3 text-sm font-medium text-gray-700">
-                  Edit product →
-                </div>
-              </div>
-            </div>
-          </Link>
-        ))}
+                <td className="p-3">
+                  {product.priceOnRequest
+                    ? "Price on request"
+                    : formatMoney(
+                        product.currency,
+                        product.price?.toString() || null
+                      )}
+                </td>
 
-        {items.length === 0 ? (
-          <div className="rounded-3xl border border-dashed border-gray-300 bg-white p-10 text-center">
-            <h2 className="text-lg font-semibold">No products found</h2>
-            <p className="text-sm text-gray-500 mt-2">
-              Try a different search or create a new product.
-            </p>
-          </div>
-        ) : null}
+                <td className="p-3">
+                  <span className="brand-badge">
+                    {product.inStock ? "In Stock" : "Out of Stock"}
+                  </span>
+                </td>
+
+                <td className="p-3">
+                  <span className="brand-badge">
+                    {product.featured ? "Yes" : "No"}
+                  </span>
+                </td>
+
+                <td className="p-3 whitespace-nowrap">
+                  {new Date(product.updatedAt).toLocaleDateString()}
+                </td>
+
+                <td className="p-3">
+                  <div className="flex flex-wrap gap-2">
+                    <Link
+                      href={`/products/${product.slug}`}
+                      target="_blank"
+                      className="ui-button"
+                    >
+                      View
+                    </Link>
+                    <Link
+                      href={`/admin/products/${product.id}`}
+                      className="ui-button-dark"
+                    >
+                      Edit
+                    </Link>
+                  </div>
+                </td>
+              </tr>
+            ))}
+
+            {products.length === 0 && (
+              <tr>
+                <td colSpan={7} className="p-6 text-center text-slate-500">
+                  No products found.
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
       </div>
-    </main>
+    </div>
   );
 }
