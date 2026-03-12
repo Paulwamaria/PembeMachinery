@@ -1,8 +1,9 @@
 import "./globals.css";
 
 export const metadata = {
+  metadataBase: new URL("https://your-domain.com"),
   title: "Pembe Machinery",
-  description: "Industrial machinery and fabrication solutions",
+  description: "Commercial machinery marketplace and quote platform.",
 };
 
 export default function RootLayout({

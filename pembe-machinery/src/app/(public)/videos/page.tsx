@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { prisma } from "@/lib/prisma";
-import VideoCard from "@/components/VideoCard";
+import PublicVideoEmbed from "@/components/PublicVideoEmbed";
 
 export const dynamic = "force-dynamic";
 
@@ -8,18 +8,6 @@ export const metadata: Metadata = {
   title: "Showcase Videos | Pembe Machinery",
   description:
     "Watch machine demos, fabrication work, and recent machinery showcase videos from Pembe Machinery.",
-  openGraph: {
-    title: "Showcase Videos | Pembe Machinery",
-    description:
-      "Watch machine demos, fabrication work, and recent machinery showcase videos from Pembe Machinery.",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Showcase Videos | Pembe Machinery",
-    description:
-      "Watch machine demos, fabrication work, and recent machinery showcase videos from Pembe Machinery.",
-  },
 };
 
 export default async function VideosPage() {
@@ -51,7 +39,7 @@ export default async function VideosPage() {
         <section className="mt-8">
           <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
             {videos.map((video) => (
-              <VideoCard key={video.id} video={video} />
+              <PublicVideoEmbed key={video.id} video={video} />
             ))}
           </div>
         </section>

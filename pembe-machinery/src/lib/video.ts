@@ -11,9 +11,15 @@ export function extractYouTubeId(url: string) {
       if (v) return v;
 
       const parts = parsed.pathname.split("/").filter(Boolean);
+
       const embedIndex = parts.findIndex((part) => part === "embed");
       if (embedIndex >= 0 && parts[embedIndex + 1]) {
         return parts[embedIndex + 1];
+      }
+
+      const shortsIndex = parts.findIndex((part) => part === "shorts");
+      if (shortsIndex >= 0 && parts[shortsIndex + 1]) {
+        return parts[shortsIndex + 1];
       }
     }
 
@@ -27,7 +33,7 @@ export function getAutoThumbnail(videoUrl: string, platform: string) {
   if (platform === "youtube") {
     const id = extractYouTubeId(videoUrl);
     if (id) {
-      return `https://img.youtube.com/vi/${id}/maxresdefault.jpg`;
+      return `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
     }
   }
 
