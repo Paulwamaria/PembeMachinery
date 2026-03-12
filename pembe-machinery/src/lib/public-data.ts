@@ -247,3 +247,37 @@ export async function getGalleryImages(limit = 4) {
       category: { name: string } | null;
     }>;
 }
+
+export async function getPublicProductBySlug(slug: string) {
+  const product = await prisma.product.findUnique({
+    where: { slug },
+    include: {
+      category: true,
+    },
+  });
+
+  if (!product) return null;
+
+  const images = Array.isArray(product.images)
+    ? product.images.filter(
+        (img): img is string =>
+          typeof img === "string" && img.trim().length > 0
+      )
+    : [];
+
+  return {
+    id: product.id,
+    name: product.name,
+    slug: product.slug,
+    summary: product.summary,
+    description: product.description,
+    category: product.category,
+    featured: product.featured,
+    inStock: product.inStock,
+    price: product.price,
+    currency: product.currency,
+    priceOnRequest: product.priceOnRequest,
+    specs: product.specs ?? null,
+    images,
+  };
+}
