@@ -1,124 +1,207 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { slugify } from "@/lib/slug";
 
-type Category = { id: string; name: string; slug: string };
+type Category = {
+  id: string;
+  name: string;
+  slug: string;
+};
 
-export default function AdminCategories() {
+export default function AdminCategoriesPage() {
   const [items, setItems] = useState<Category[]>([]);
   const [name, setName] = useState("");
   const [slug, setSlug] = useState("");
   const [loading, setLoading] = useState(false);
-  const [err, setErr] = useState<string | null>(null);
 
-  const autoSlug = useMemo(() => slugify(name), [name]);
+  async function load() {
+    const res = await fetch("/api/admin/categories");
+    const data = await res.json();
+    setItems(data.results ?? []);
+  }
 
   useEffect(() => {
-    fetch("/api/admin/categories")
-      .then((r) => r.json())
-      .then((d) => setItems(d.results ?? []));
+    load();
   }, []);
 
   useEffect(() => {
-    if (!slug) setSlug(autoSlug);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [autoSlug]);
+    if (!slug && name) {
+      setSlug(slugify(name));
+    }
+  }, [name, slug]);
 
-  async function addCategory(e: React.FormEvent) {
+  async function createCategory(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
-    setErr(null);
 
     const res = await fetch("/api/admin/categories", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, slug: slugify(slug) }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name,
+        slug: slugify(slug || name),
+      }),
     });
 
     setLoading(false);
+
     if (!res.ok) {
-      setErr("Failed to create category (slug must be unique).");
+      const data = await res.json().catch(() => ({}));
+      alert(data.error || "Failed to create category");
       return;
     }
 
-    const created = await res.json();
-    setItems((prev) => [created, ...prev].sort((a, b) => a.name.localeCompare(b.name)));
     setName("");
     setSlug("");
-  }
-
-  async function updateCategory(id: string, patch: Partial<Category>) {
-    const res = await fetch(`/api/admin/categories/${id}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(patch),
-    });
-    if (!res.ok) return;
-
-    const updated = await res.json();
-    setItems((prev) => prev.map((x) => (x.id === id ? updated : x)));
-  }
-
-  async function removeCategory(id: string) {
-    if (!confirm("Delete this category? (must have no products)")) return;
-    const res = await fetch(`/api/admin/categories/${id}`, { method: "DELETE" });
-    if (!res.ok) {
-      alert("Cannot delete category. Remove/Move its products first.");
-      return;
-    }
-    setItems((prev) => prev.filter((x) => x.id !== id));
+    load();
   }
 
   return (
     <main className="max-w-5xl">
-      <h1 className="text-2xl font-semibold">Manage Categories</h1>
-
-      <form onSubmit={addCategory} className="mt-6 grid md:grid-cols-3 gap-3">
-        <input
-          className="border rounded-xl px-3 py-2"
-          placeholder="Category name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <input
-          className="border rounded-xl px-3 py-2"
-          placeholder="Slug (auto)"
-          value={slug}
-          onChange={(e) => setSlug(e.target.value)}
-        />
-        <button className="border rounded-xl px-3 py-2" disabled={loading}>
-          {loading ? "Adding..." : "Add Category"}
-        </button>
-      </form>
-
-      {err ? <div className="text-sm text-red-600 mt-2">{err}</div> : null}
-
-      <div className="mt-8 space-y-3">
-        {items.map((c) => (
-          <div key={c.id} className="border rounded-2xl p-4 flex flex-col md:flex-row gap-3 md:items-center">
-            <input
-              className="border rounded-xl px-3 py-2 flex-1"
-              defaultValue={c.name}
-              onBlur={(e) => {
-                const v = e.target.value.trim();
-                if (v && v !== c.name) updateCategory(c.id, { name: v });
-              }}
-            />
-            <input
-              className="border rounded-xl px-3 py-2 flex-1"
-              defaultValue={c.slug}
-              onBlur={(e) => {
-                const v = slugify(e.target.value);
-                if (v && v !== c.slug) updateCategory(c.id, { slug: v });
-              }}
-            />
-            <button className="border rounded-xl px-3 py-2" onClick={() => removeCategory(c.id)}>
-              Delete
-            </button>
-          </div>
-        ))}
+      <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+        <div>
+          <p className="text-sm uppercase tracking-[0.18em] text-[color:var(--text-muted)]">
+            Admin
+          </p>
+          <h1 className="text-3xl font-semibold tracking-tight mt-1 text-[color:var(--pembe-purple)]">
+            Categories
+          </h1>
+          <p className="text-sm text-[color:var(--text-muted)] mt-2">
+            Organize products into clean, searchable catalogue groups.
+          </p>
+        </div>
       </div>
+
+      <section className="mt-8 grid lg:grid-cols-[1.1fr_1.4fr] gap-6">
+        <div className="soft-card p-6">
+          <div className="flex items-center gap-3">
+            <div className="h-11 w-11 rounded-2xl bg-[rgba(91,44,163,0.10)] flex items-center justify-center text-[color:var(--pembe-purple)] font-semibold">
+              +
+            </div>
+            <div>
+              <h2 className="text-xl font-semibold text-slate-900">
+                Add Category
+              </h2>
+              <p className="text-sm text-[color:var(--text-muted)] mt-1">
+                Create a new catalogue category for machinery items.
+              </p>
+            </div>
+          </div>
+
+          <form onSubmit={createCategory} className="mt-6 space-y-4">
+            <div>
+              <label className="mb-2 block text-sm font-medium text-slate-900">
+                Category Name
+              </label>
+              <input
+                className="ui-input"
+                placeholder="e.g. Rice Hullers"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+            </div>
+
+            <div>
+              <label className="mb-2 block text-sm font-medium text-slate-900">
+                Slug
+              </label>
+              <input
+                className="ui-input"
+                placeholder="e.g. rice-hullers"
+                value={slug}
+                onChange={(e) => setSlug(e.target.value)}
+              />
+            </div>
+
+            <button
+              disabled={loading}
+              className="ui-button ui-button-dark w-full"
+            >
+              {loading ? "Creating..." : "Create Category"}
+            </button>
+          </form>
+        </div>
+
+        <div className="soft-card p-6">
+          <div className="flex items-center justify-between gap-4">
+            <div>
+              <h2 className="text-xl font-semibold text-slate-900">
+                Existing Categories
+              </h2>
+              <p className="text-sm text-[color:var(--text-muted)] mt-1">
+                Categories currently available in the public catalogue.
+              </p>
+            </div>
+
+            <div className="brand-badge brand-badge-purple">
+              {items.length} total
+            </div>
+          </div>
+
+          <div className="mt-5 space-y-3">
+            {items.length === 0 ? (
+              <div className="rounded-2xl border border-dashed border-[color:var(--border)] bg-white p-8 text-center">
+                <h3 className="font-semibold text-slate-900">
+                  No categories yet
+                </h3>
+                <p className="text-sm text-[color:var(--text-muted)] mt-2">
+                  Create your first category to start organizing products.
+                </p>
+              </div>
+            ) : (
+              items.map((item, index) => {
+                const accents = [
+                  "var(--pembe-purple)",
+                  "var(--pembe-green)",
+                  "var(--pembe-magenta)",
+                ];
+                const accent = accents[index % accents.length];
+
+                return (
+                  <div
+                    key={item.id}
+                    className="rounded-2xl border border-[color:var(--border)] bg-white p-4 shadow-sm"
+                  >
+                    <div className="flex items-start justify-between gap-4">
+                      <div className="flex items-start gap-3">
+                        <div
+                          className="mt-1 h-10 w-10 rounded-2xl text-white flex items-center justify-center text-sm font-semibold"
+                          style={{ background: accent }}
+                        >
+                          {item.name.slice(0, 2).toUpperCase()}
+                        </div>
+
+                        <div>
+                          <div className="font-semibold text-slate-900">
+                            {item.name}
+                          </div>
+                          <div className="text-sm text-[color:var(--text-muted)] mt-1">
+                            /{item.slug}
+                          </div>
+                        </div>
+                      </div>
+
+                      <span
+                        className="brand-badge"
+                        style={{
+                          background: "rgba(91,44,163,0.06)",
+                          color: "var(--pembe-purple)",
+                          border: "1px solid rgba(91,44,163,0.14)",
+                        }}
+                      >
+                        Active
+                      </span>
+                    </div>
+                  </div>
+                );
+              })
+            )}
+          </div>
+        </div>
+      </section>
     </main>
   );
 }
