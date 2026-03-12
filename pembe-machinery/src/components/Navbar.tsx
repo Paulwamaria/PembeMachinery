@@ -5,8 +5,10 @@ const links = [
   { href: "/products", label: "Products" },
   { href: "/services", label: "Services" },
   { href: "/projects", label: "Projects" },
+  { href: "/videos", label: "Showcase Videos" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
+  { href: "/admin", label: "Admin" },
 ];
 
 export default function Navbar() {
