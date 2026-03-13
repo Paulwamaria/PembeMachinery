@@ -1,36 +1,386 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# PEMBE MACHINERY WEBSITE
 
-## Getting Started
+Commercial machinery catalogue and lead generation platform for **Pembe Machinery**.
 
-First, run the development server:
+The system combines a public product marketplace with an **admin CMS and inquiry CRM**, allowing the company to manage products, videos, and customer inquiries efficiently.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# Project Overview
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Pembe Machinery supplies agricultural and industrial machinery, fabrication services, and spare parts.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+This platform provides:
 
-## Learn More
+• Machinery catalogue  
+• WhatsApp quotation system  
+• Admin product management  
+• Video showcase system  
+• Customer inquiry CRM  
+• Email notification system
 
-To learn more about Next.js, take a look at the following resources:
+The website is designed for **real commercial use** and optimized for **lead generation and product discovery**.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# Technology Stack
 
-## Deploy on Vercel
+Framework  
+Next.js (App Router)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Language  
+TypeScript
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Database  
+PostgreSQL
+
+ORM  
+Prisma
+
+Authentication  
+JWT (JOSE)
+
+Styling  
+Tailwind CSS
+
+Email Notifications  
+Resend API
+
+Deployment Target  
+Linux VPS / Ubuntu server
+
+Media Storage  
+Local storage (`public/uploads`)
+
+---
+
+# Core Features
+
+## Public Website
+
+Homepage includes
+
+• Hero section  
+• Machinery highlights  
+• Categories overview  
+• Featured products  
+• Video previews  
+• WhatsApp contact
+
+---
+
+## Product Marketplace
+
+Routes
+/products
+/products/[slug]
+
+
+Features
+
+• Category filtering  
+• Product specifications  
+• Image gallery  
+• Pricing / price-on-request  
+• WhatsApp quotation button  
+• Customer inquiry form
+
+---
+
+## Services Page
+/services
+
+Displays
+
+• Machinery supply  
+• Fabrication  
+• Spare parts  
+• Equipment consultation  
+• Maintenance support
+
+---
+
+## Projects Page
+/projects
+
+Displays
+
+• Machinery installations  
+• Fabrication work  
+• Industrial solutions
+
+---
+
+## Showcase Videos
+/videos
+
+Supports
+
+• Uploaded videos  
+• YouTube embeds  
+• Facebook video links  
+• Vimeo videos
+
+---
+
+## Contact Page
+
+Includes
+
+• Business contact details  
+• Two contact persons  
+• WhatsApp integration  
+• Email contact  
+• Map placeholder
+
+---
+
+# Admin CMS
+
+Route
+/admin
+
+Protected by JWT authentication.
+
+Admin can manage
+
+• Products  
+• Categories  
+• Showcase videos  
+• Customer inquiries
+
+---
+
+# Admin Features
+
+## Product Management
+
+Admin can
+
+• Create products  
+• Upload images  
+• Reorder images  
+• Assign categories  
+• Set pricing  
+• Mark featured products  
+• Manage stock availability
+
+Images stored in
+
+public/uploads/products
+
+
+---
+
+## Category Management
+
+Admin can
+
+• Create categories  
+• View category list  
+• Assign products
+
+---
+
+## Video Management
+
+Admin can
+
+• Upload videos  
+• Add YouTube / Facebook / Vimeo links  
+• Set featured videos  
+• Delete videos
+
+Videos stored in
+
+public/uploads/videos
+
+
+---
+
+# Inquiry CRM System
+
+Customers can submit product inquiries.
+
+Admin dashboard allows
+
+• View inquiries  
+• Search customers  
+• Filter by status  
+• Update status (new / contacted / closed)
+
+Quick actions
+
+• Call customer  
+• Email customer  
+• WhatsApp customer
+
+---
+
+# Email Notification System
+
+When an inquiry is submitted:
+
+The system automatically sends a notification email to the company.
+
+Example notification:
+
+*New Inquiry Received
+
+Customer: John Mwangi
+Phone: 0721xxxx
+Product: Grain Thresher
+Message: I need a quotation*
+
+
+---
+
+# Project Structure
+
+src
+├ app
+│ ├ (auth)
+│ │ └ admin/login
+│ ├ (public)
+│ │ ├ about
+│ │ ├ contact
+│ │ ├ products
+│ │ ├ projects
+│ │ ├ services
+│ │ └ videos
+│ ├ admin
+│ │ ├ categories
+│ │ ├ products
+│ │ ├ videos
+│ │ ├ inquiries
+│ │ └ dashboard
+│ └ api
+│ ├ admin
+│ ├ inquiries
+│ └ auth
+│
+├ components
+│ ├ Navbar
+│ ├ Footer
+│ ├ HeroSection
+│ ├ CategoryGrid
+│ ├ FeaturedProducts
+│ ├ HomeGallery
+│ ├ HomeVideos
+│ ├ FloatingWhatsApp
+│ └ AdminShell
+│
+└ lib
+├ prisma.ts
+├ admin-session.ts
+├ public-data.ts
+├ email.ts
+└ slug.ts
+
+
+---
+
+# Installation
+
+Clone repository
+
+
+Install dependencies
+
+npm install/yarn install
+
+
+---
+
+# Environment Variables
+
+Create `.env`
+
+DATABASE_URL=postgresql://user:password@localhost:5432/pembe
+
+JWT_SECRET=your-secret
+
+RESEND_API_KEY=re_xxxxxx
+EMAIL_FROM=Pembe Machinery notifications@yourdomain.com
+
+NOTIFY_EMAIL=info@pembemachinery.com
+
+
+---
+
+# Database Setup
+
+Run migrations
+ npx prisma migrate dev
+
+
+---
+
+# Development
+
+Run development server
+ npm run dev
+
+Open
+
+
+http://localhost:3000
+
+
+Admin panel
+
+
+http://localhost:3000/admin
+
+
+---
+
+# Production Deployment
+
+Recommended stack
+
+• Ubuntu VPS  
+• Node.js  
+• Nginx reverse proxy  
+• PostgreSQL database  
+• PM2 process manager
+
+---
+
+# Future Improvements
+
+Potential upgrades
+
+• Image compression pipeline  
+• SEO metadata system  
+• OpenGraph preview images  
+• Google Maps integration  
+• Product comparison  
+• Inventory tracking  
+• Analytics dashboard
+
+---
+
+# License
+
+Internal / Commercial use.
+
+---
+
+# Author
+
+Developed by
+
+**Paul Wamaria**
+
+Full-stack developer specializing in
+
+• Next.js platforms  
+• Commercial product systems  
+• Marketplace applications  
+• CRM integrations
+
+
+
+
+
