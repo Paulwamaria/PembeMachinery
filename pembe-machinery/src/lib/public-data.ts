@@ -44,10 +44,46 @@ export async function getPublicProducts(options?: {
 
   return prisma.product.findMany({
     where,
-    include: { category: true },
+    include: {
+      category: true,
+    },
     orderBy: [{ featured: "desc" }, { createdAt: "desc" }],
     ...(options?.limit ? { take: options.limit } : {}),
   });
+}
+
+export async function getPublicProductBySlug(slug: string) {
+  const product = await prisma.product.findUnique({
+    where: { slug },
+    include: {
+      category: true,
+    },
+  });
+
+  if (!product) return null;
+
+  const images = Array.isArray(product.images)
+    ? product.images.filter(
+      (img): img is string =>
+        typeof img === "string" && img.trim().length > 0
+    )
+    : [];
+
+  return {
+    id: product.id,
+    name: product.name,
+    slug: product.slug,
+    summary: product.summary,
+    description: product.description,
+    category: product.category,
+    featured: product.featured,
+    inStock: product.inStock,
+    price: product.price,
+    currency: product.currency,
+    priceOnRequest: product.priceOnRequest,
+    specs: product.specs ?? null,
+    images,
+  };
 }
 
 export async function getFilteredProducts(filters: ProductFilters) {
@@ -73,7 +109,9 @@ export async function getFilteredProducts(filters: ProductFilters) {
   }
 
   if (category?.trim()) {
-    where.category = { slug: category.trim() };
+    where.category = {
+      slug: category.trim(),
+    };
   }
 
   if (in_stock === "true") {
@@ -112,7 +150,9 @@ export async function getFilteredProducts(filters: ProductFilters) {
 
   return prisma.product.findMany({
     where,
-    include: { category: true },
+    include: {
+      category: true,
+    },
     orderBy,
   });
 }
@@ -123,12 +163,84 @@ export async function getAllCategories() {
   });
 }
 
+export async function getHeroImages(limit = 6) {
+  const featuredProducts = await prisma.product.findMany({
+    where: {
+      images: { not: null },
+      featured: true,
+    },
+    orderBy: { createdAt: "desc" },
+    take: Math.max(limit * 2, limit),
+  });
+
+  const mappedFeatured = featuredProducts
+    .map((product) => {
+      const images = Array.isArray(product.images) ? product.images : [];
+      const firstImage =
+        images.find(
+          (img): img is string =>
+            typeof img === "string" && img.trim().length > 0
+        ) || null;
+
+      if (!firstImage) return null;
+
+      return {
+        id: product.id,
+        slug: product.slug,
+        image: firstImage,
+        name: product.name,
+      };
+    })
+    .filter(Boolean);
+
+  if (mappedFeatured.length >= 4) {
+    return mappedFeatured.slice(0, limit) as Array<{
+      id: string;
+      slug: string;
+      image: string;
+      name: string;
+    }>;
+  }
+
+  const fallbackProducts = await prisma.product.findMany({
+    where: {
+      images: { not: null },
+    },
+    orderBy: { createdAt: "desc" },
+    take: Math.max(limit * 2, limit),
+  });
+
+  return fallbackProducts
+    .map((product) => {
+      const images = Array.isArray(product.images) ? product.images : [];
+      const firstImage =
+        images.find(
+          (img): img is string =>
+            typeof img === "string" && img.trim().length > 0
+        ) || null;
+
+      if (!firstImage) return null;
+
+      return {
+        id: product.id,
+        slug: product.slug,
+        image: firstImage,
+        name: product.name,
+      };
+    })
+    .filter(Boolean)
+    .slice(0, limit) as Array<{
+      id: string;
+      slug: string;
+      image: string;
+      name: string;
+    }>;
+}
+
 export async function getGalleryImages(limit = 4) {
   const products = await prisma.product.findMany({
     where: {
-      images: {
-        not: null,
-      },
+      images: { not: null },
     },
     include: {
       category: true,
@@ -143,8 +255,10 @@ export async function getGalleryImages(limit = 4) {
     .map((product) => {
       const images = Array.isArray(product.images) ? product.images : [];
       const firstImage =
-        images.find((img) => typeof img === "string" && img.trim().length > 0) ||
-        null;
+        images.find(
+          (img): img is string =>
+            typeof img === "string" && img.trim().length > 0
+        ) || null;
 
       if (!firstImage) return null;
 
@@ -162,122 +276,91 @@ export async function getGalleryImages(limit = 4) {
       slug: string;
       image: string;
       name: string;
-      category: { name: string } | null;
-    }>;
-} export async function getHeroImages(limit = 6) {
-  const featuredProducts = await prisma.product.findMany({
-    where: {
-      images: { not: null },
-      featured: true,
-    },
-    include: {
-      category: true,
-    },
-    orderBy: {
-      createdAt: "desc",
-    },
-    take: Math.max(limit * 2, limit),
-  });
-
-  const mappedFeatured = featuredProducts
-    .map((product) => {
-      const images = Array.isArray(product.images) ? product.images : [];
-      const firstImage =
-        images.find((img) => typeof img === "string" && img.trim().length > 0) ||
-        null;
-
-      if (!firstImage) return null;
-
-      return {
-        id: product.id,
-        slug: product.slug,
-        image: firstImage,
-        name: product.name,
-        category: product.category,
-      };
-    })
-    .filter(Boolean);
-
-  if (mappedFeatured.length >= limit) {
-    return mappedFeatured.slice(0, limit) as Array<{
-      id: string;
-      slug: string;
-      image: string;
-      name: string;
-      category: { name: string } | null;
-    }>;
-  }
-
-  const fallbackProducts = await prisma.product.findMany({
-    where: {
-      images: { not: null },
-    },
-    include: {
-      category: true,
-    },
-    orderBy: {
-      createdAt: "desc",
-    },
-    take: Math.max(limit * 2, limit),
-  });
-
-  return fallbackProducts
-    .map((product) => {
-      const images = Array.isArray(product.images) ? product.images : [];
-      const firstImage =
-        images.find((img) => typeof img === "string" && img.trim().length > 0) ||
-        null;
-
-      if (!firstImage) return null;
-
-      return {
-        id: product.id,
-        slug: product.slug,
-        image: firstImage,
-        name: product.name,
-        category: product.category,
-      };
-    })
-    .filter(Boolean)
-    .slice(0, limit) as Array<{
-      id: string;
-      slug: string;
-      image: string;
-      name: string;
-      category: { name: string } | null;
+      category: { id: string; name: string; slug: string } | null;
     }>;
 }
 
-export async function getPublicProductBySlug(slug: string) {
-  const product = await prisma.product.findUnique({
-    where: { slug },
+export async function getAboutGallery(limit = 6) {
+  const products = await prisma.product.findMany({
+    where: {
+      images: { not: null },
+    },
     include: {
       category: true,
     },
+    orderBy: [{ featured: "desc" }, { createdAt: "desc" }],
+    take: Math.max(limit * 2, limit),
   });
 
-  if (!product) return null;
+  return products
+    .map((product) => {
+      const images = Array.isArray(product.images) ? product.images : [];
+      const firstImage =
+        images.find(
+          (img): img is string =>
+            typeof img === "string" && img.trim().length > 0
+        ) || null;
 
-  const images = Array.isArray(product.images)
-    ? product.images.filter(
-        (img): img is string =>
-          typeof img === "string" && img.trim().length > 0
-      )
-    : [];
+      if (!firstImage) return null;
 
-  return {
-    id: product.id,
-    name: product.name,
-    slug: product.slug,
-    summary: product.summary,
-    description: product.description,
-    category: product.category,
-    featured: product.featured,
-    inStock: product.inStock,
-    price: product.price,
-    currency: product.currency,
-    priceOnRequest: product.priceOnRequest,
-    specs: product.specs ?? null,
-    images,
-  };
+      return {
+        id: product.id,
+        slug: product.slug,
+        name: product.name,
+        image: firstImage,
+        category: product.category,
+      };
+    })
+    .filter(Boolean)
+    .slice(0, limit) as Array<{
+      id: string;
+      slug: string;
+      name: string;
+      image: string;
+      category: { id: string; name: string; slug: string } | null;
+    }>;
+}
+
+// project gallery helper
+export async function getProjectsGallery(limit = 6) {
+  const products = await prisma.product.findMany({
+    where: {
+      images: { not: null },
+    },
+    include: {
+      category: true,
+    },
+    orderBy: [{ featured: "desc" }, { createdAt: "desc" }],
+    take: Math.max(limit * 2, limit),
+  });
+
+  return products
+    .map((product) => {
+      const images = Array.isArray(product.images) ? product.images : [];
+      const firstImage =
+        images.find(
+          (img): img is string =>
+            typeof img === "string" && img.trim().length > 0
+        ) || null;
+
+      if (!firstImage) return null;
+
+      return {
+        id: product.id,
+        slug: product.slug,
+        name: product.name,
+        image: firstImage,
+        category: product.category,
+        summary: product.summary ?? null,
+      };
+    })
+    .filter(Boolean)
+    .slice(0, limit) as Array<{
+      id: string;
+      slug: string;
+      name: string;
+      image: string;
+      summary: string | null;
+      category: { id: string; name: string; slug: string } | null;
+    }>;
 }
