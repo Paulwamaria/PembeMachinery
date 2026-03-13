@@ -1,110 +1,250 @@
+import Link from "next/link";
+
+const contactPeople = [
+  {
+    name: "John Kamau",
+    role: "Sales Manager",
+    phone: "+254721772520",
+    email: "sales@pembemachinery.com",
+    image: "/contact/contact-1.png",
+  },
+  {
+    name: "Mary Wanjiku",
+    role: "Operations Coordinator",
+    phone: "+254700000000",
+    email: "operations@pembemachinery.com",
+    image: "/contact/contact-2.png",
+  },
+];
+
 export default function ContactPage() {
   return (
-    <main>
-      <section className="border-b border-[color:var(--border)] bg-gradient-to-b from-white to-[color:var(--soft-2)]">
-        <div className="container-shell py-14 md:py-18">
-          <p className="section-kicker">Contact</p>
-          <h1 className="section-title mt-3">
-            Get in Touch
-          </h1>
-          <p className="max-w-3xl mt-5 text-base md:text-lg text-[color:var(--text-muted)] leading-7">
-            Reach Pembe Machinery directly for machine enquiries, fabrication support,
-            pricing requests, and product availability.
+    <main className="section-space">
+      <div className="container-shell">
+        {/* HEADER */}
+        <section className="max-w-3xl">
+          <p className="section-kicker">Contact Us</p>
+          <h1 className="section-title mt-2">Get in Touch with Pembe Machinery</h1>
+          <p className="mt-4 text-lg leading-8 text-slate-600">
+            Reach out for machinery enquiries, fabrication support, spare parts,
+            or quick quotations. We are ready to guide you toward the most
+            practical solution for your business.
           </p>
-        </div>
-      </section>
+        </section>
 
-      <section className="container-shell py-14 grid lg:grid-cols-2 gap-8">
-        <div className="space-y-6">
-          <div className="soft-card p-6">
-            <h2 className="text-xl font-semibold text-[color:var(--pembe-purple)]">
-              Direct Contact
-            </h2>
+        {/* MAIN CONTACT GRID */}
+        <section className="mt-16 grid gap-8 lg:grid-cols-[0.95fr_1.05fr]">
+          <div className="space-y-6">
+            <div className="soft-card rounded-[1.75rem] p-6">
+              <h2 className="text-2xl font-semibold text-[color:var(--pembe-purple)]">
+                Company Contact Details
+              </h2>
 
-            <div className="mt-5 space-y-4 text-sm">
-              <div>
-                <div className="font-medium text-slate-900">Phone</div>
-                <a href="tel:0721772520" className="text-[color:var(--text-muted)] hover:text-[color:var(--pembe-purple)]">
-                  0721 772 520
-                </a>
+              <div className="mt-6 space-y-4">
+                <div className="rounded-2xl border bg-white p-4">
+                  <div className="text-sm text-slate-500">Phone</div>
+                  <a
+                    href="tel:+254721772520"
+                    className="mt-1 block font-semibold text-slate-900"
+                  >
+                    +254 721 772 520
+                  </a>
+                </div>
+
+                <div className="rounded-2xl border bg-white p-4">
+                  <div className="text-sm text-slate-500">Email</div>
+                  <a
+                    href="mailto:info@pembemachinery.com"
+                    className="mt-1 block font-semibold text-slate-900"
+                  >
+                    info@pembemachinery.com
+                  </a>
+                </div>
+
+                <div className="rounded-2xl border bg-white p-4">
+                  <div className="text-sm text-slate-500">WhatsApp</div>
+                  <a
+                    href="https://wa.me/254721772520"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="mt-1 block font-semibold text-slate-900"
+                  >
+                    Chat on WhatsApp
+                  </a>
+                </div>
+
+                <div className="rounded-2xl border bg-white p-4">
+                  <div className="text-sm text-slate-500">Business Hours</div>
+                  <div className="mt-1 font-semibold text-slate-900">
+                    Monday - Saturday
+                  </div>
+                  <div className="text-sm text-slate-500">
+                    8:00 AM - 6:00 PM
+                  </div>
+                </div>
+
+                <div className="rounded-2xl border bg-white p-4">
+                  <div className="text-sm text-slate-500">Location</div>
+                  <div className="mt-1 font-semibold text-slate-900">
+                    Nairobi, Kenya
+                  </div>
+                  <div className="text-sm text-slate-500">
+                    Nationwide machinery support and enquiries
+                  </div>
+                </div>
               </div>
+            </div>
 
-              <div>
-                <div className="font-medium text-slate-900">WhatsApp</div>
+            <div className="rounded-[1.75rem] bg-gradient-to-br from-purple-50 via-white to-green-50 p-6 shadow-sm">
+              <h2 className="text-xl font-semibold text-slate-900">
+                Need a Quick Quotation?
+              </h2>
+              <p className="mt-3 text-slate-600">
+                The fastest way to get started is to contact us directly with the
+                machine or service you need.
+              </p>
+
+              <div className="mt-5 flex flex-wrap gap-3">
                 <a
                   href="https://wa.me/254721772520"
                   target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-[color:var(--text-muted)] hover:text-[color:var(--pembe-green)]"
+                  rel="noreferrer"
+                  className="ui-button-green"
                 >
-                  Chat on WhatsApp
+                  WhatsApp Us
                 </a>
-              </div>
 
-              <div>
-                <div className="font-medium text-slate-900">Email</div>
-                <a
-                  href="mailto:admin@pembemachinery.co.ke"
-                  className="text-[color:var(--text-muted)] hover:text-[color:var(--pembe-magenta)]"
-                >
-                  admin@pembemachinery.co.ke
-                </a>
-              </div>
-
-              <div>
-                <div className="font-medium text-slate-900">Location</div>
-                <div className="text-[color:var(--text-muted)]">Nakuru, Kenya</div>
+                <Link href="/products" className="ui-button">
+                  Browse Products
+                </Link>
               </div>
             </div>
           </div>
 
-          <div className="soft-card p-6">
-            <h2 className="text-xl font-semibold text-[color:var(--pembe-purple)]">
-              Business Hours
+          {/* CONTACT PERSONS */}
+          <div>
+            <h2 className="text-2xl font-semibold text-[color:var(--pembe-purple)]">
+              Contact Persons
             </h2>
-            <div className="mt-5 space-y-3 text-sm text-[color:var(--text-muted)]">
-              <div className="flex justify-between gap-4">
-                <span>Monday - Friday</span>
-                <span>8:00 AM - 5:00 PM</span>
-              </div>
-              <div className="flex justify-between gap-4">
-                <span>Saturday</span>
-                <span>8:00 AM - 1:00 PM</span>
-              </div>
-              <div className="flex justify-between gap-4">
-                <span>Sunday</span>
-                <span>Closed</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="soft-card p-6">
-            <h2 className="text-xl font-semibold text-[color:var(--pembe-purple)]">
-              Fastest Way to Get a Quote
-            </h2>
-            <p className="text-sm text-[color:var(--text-muted)] mt-3 leading-6">
-              The fastest response method is WhatsApp. Send the product name,
-              quantity, and location, and the team can respond with pricing
-              and delivery guidance.
+            <p className="mt-3 text-slate-600">
+              Reach out directly to the relevant person for sales, quotations,
+              operations, and support.
             </p>
 
-            <a
-              href="https://wa.me/254721772520?text=Hello%20Pembe%20Machinery,%20I%20would%20like%20a%20quote."
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex mt-5 ui-button ui-button-green"
-            >
-              Request Quote on WhatsApp
-            </a>
-          </div>
-        </div>
+            <div className="mt-8 grid gap-6 md:grid-cols-2">
+              {contactPeople.map((person) => (
+                <div
+                  key={person.name}
+                  className="overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+                >
+                  <div className="aspect-[4/4] overflow-hidden bg-slate-100">
+                    <img
+                      src={person.image}
+                      alt={person.name}
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
 
-        <div className="soft-card overflow-hidden min-h-[520px]">
-          <div className="h-full w-full flex items-center justify-center text-sm text-[color:var(--text-muted)] bg-[linear-gradient(135deg,rgba(91,44,163,0.08),rgba(45,190,63,0.08))]">
-            Google Map / Location Embed Placeholder
+                  <div className="p-5">
+                    <div className="brand-badge inline-block">{person.role}</div>
+
+                    <h3 className="mt-3 text-xl font-semibold text-slate-900">
+                      {person.name}
+                    </h3>
+
+                    <div className="mt-4 space-y-3">
+                      <div>
+                        <div className="text-xs uppercase tracking-wide text-slate-500">
+                          Phone
+                        </div>
+                        <a
+                          href={`tel:${person.phone.replace(/\s+/g, "")}`}
+                          className="mt-1 block font-medium text-slate-900"
+                        >
+                          {person.phone}
+                        </a>
+                      </div>
+
+                      <div>
+                        <div className="text-xs uppercase tracking-wide text-slate-500">
+                          Email
+                        </div>
+                        <a
+                          href={`mailto:${person.email}`}
+                          className="mt-1 block font-medium text-slate-900"
+                        >
+                          {person.email}
+                        </a>
+                      </div>
+
+                      <div className="pt-2">
+                        <a
+                          href={`https://wa.me/${person.phone.replace(/[^\d]/g, "")}`}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="ui-button-green w-full justify-center"
+                        >
+                          Contact on WhatsApp
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+
+        {/* MAP */}
+        <section className="mt-20">
+          <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+            <div>
+              <p className="section-kicker">Location</p>
+              <h2 className="section-title mt-2">Find Us</h2>
+              <p className="mt-3 max-w-2xl text-slate-600">
+                Visit us or reach out remotely for machinery enquiries and support.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-8 overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-sm">
+            <iframe
+              src="https://maps.google.com/maps?q=Nairobi%2C%20Kenya&t=&z=13&ie=UTF8&iwloc=&output=embed"
+              width="100%"
+              height="420"
+              loading="lazy"
+              className="w-full"
+            />
+          </div>
+        </section>
+
+        {/* CTA */}
+        <section className="mt-20 text-center">
+          <h2 className="section-title">
+            Let’s Help You Find the Right Machinery Solution
+          </h2>
+
+          <p className="mt-4 text-slate-600">
+            Whether you need a machine, fabrication support, or a quick quote,
+            our team is ready to help.
+          </p>
+
+          <div className="mt-8 flex flex-wrap justify-center gap-4">
+            <a
+              href="https://wa.me/254721772520"
+              target="_blank"
+              rel="noreferrer"
+              className="ui-button-green"
+            >
+              Chat on WhatsApp
+            </a>
+
+            <Link href="/products" className="ui-button">
+              Browse Products
+            </Link>
+          </div>
+        </section>
+      </div>
     </main>
   );
 }
