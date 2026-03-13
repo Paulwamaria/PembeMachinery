@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { sendInquiryNotification } from "@/lib/email";
 
 export async function POST(req: NextRequest) {
     try {
@@ -22,7 +23,7 @@ export async function POST(req: NextRequest) {
             );
         }
 
-   
+
         const inquiry = await prisma.inquiry.create({
             data: {
                 fullName,
@@ -33,6 +34,25 @@ export async function POST(req: NextRequest) {
                 productId: productId || null,
             },
         });
+        try {
+            await sendInquiryNotification({
+                fullName,
+                phone,
+                email,
+                company,
+                message,
+                productName: inquiry.productId
+                    ? (
+                        await prisma.product.findUnique({
+                            where: { id: inquiry.productId },
+                            select: { name: true },
+                        })
+                    )?.name ?? null
+                    : null,
+            });
+        } catch (emailError) {
+            console.error("Inquiry email notification failed:", emailError);
+        }
 
         return NextResponse.json({
             success: true,
