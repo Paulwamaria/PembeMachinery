@@ -109,7 +109,7 @@ export default async function AdminInquiriesPage({
                                         )}
 
                                         <a
-                                            href={`https://wa.me/${phone}?text=Hello%20${item.fullName},%20regarding%20your%20inquiry%20about%20${item.product?.name}`}
+                                            href={`https://wa.me/${item.phone}?text=Hello%20${item.fullName},%20regarding%20your%20inquiry%20about%20${item.product?.name}`}
                                             target="_blank"
                                             rel="noreferrer"
                                             className="ui-button-green text-xs"

@@ -6,14 +6,14 @@ const contactPeople = [
     role: "Sales Manager",
     phone: "+254721772520",
     email: "sales@pembemachinery.com",
-    image: "/contact/contact-1.png",
+    image: "/images/contact/contact-1.png",
   },
   {
     name: "Mary Wanjiku",
     role: "Operations Coordinator",
     phone: "+254700000000",
     email: "operations@pembemachinery.com",
-    image: "/contact/contact-2.png",
+    image: "/images/contact/contact-2.png",
   },
 ];
 
