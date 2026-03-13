@@ -8,8 +8,9 @@ export async function POST(
 ) {
   try {
     const session = await getAdminSession();
+
     if (!session) {
-      return NextResponse.redirect(new URL("/admin/login", req.url));
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     const { id } = await params;
