@@ -21,16 +21,16 @@ export async function generateMetadata({
 
   if (!product) {
     return {
-      title: "Product Not Found | Pembe Machinery",
+      title: "Product Not Found | Nakuru Rollermill & Poshomill Center",
       description: "The requested product could not be found.",
     };
   }
 
-  const title = `${product.name} | Pembe Machinery`;
+  const title = `${product.name} | Nakuru Rollermill & Poshomill Center`;
   const description =
     product.summary ||
     product.description ||
-    `View ${product.name} on Pembe Machinery and request a quote.`;
+    `View ${product.name} on Nakuru Rollermill & Poshomill Center and request a quote.`;
 
   const firstImage =
     Array.isArray(product.images) && product.images.length > 0

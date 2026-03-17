@@ -71,10 +71,10 @@ export default function AdminShell({
                     <div className="sticky top-0 flex h-screen flex-col">
                         <div className="border-b border-[color:var(--border)] px-6 py-5 bg-[linear-gradient(135deg,rgba(91,44,163,0.08),rgba(45,190,63,0.05))]">
                             <Link href="/admin" className="flex items-center gap-3">
-                                <img src="/logo.svg" alt="Pembe Admin" className="h-11 w-auto" />
+                                <img src="/logo.svg" alt="Nakurop Center Admin" className="h-11 w-auto" />
                                 <div>
                                     <div className="font-semibold tracking-tight text-[color:var(--pembe-purple)]">
-                                        Pembe Admin
+                                        NAKUROP CENTER Admin
                                     </div>
                                     <div className="text-xs text-[color:var(--text-muted)]">
                                         Management Panel
@@ -132,7 +132,7 @@ export default function AdminShell({
                                     Admin Panel
                                 </div>
                                 <div className="text-lg font-semibold text-[color:var(--pembe-purple)]">
-                                    Pembe Machinery
+                                    Nakuru Rollermill & Poshomill Center
                                 </div>
                             </div>
 

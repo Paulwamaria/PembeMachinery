@@ -19,7 +19,7 @@ export default async function HeroSection() {
             </h1>
 
             <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600">
-              Pembe Machinery supplies quality agricultural and processing machinery,
+              Nakuru Rollermill & Poshomill Center supplies quality agricultural and processing machinery,
               spare parts, and fabrication support with faster, clearer customer
               service built around direct enquiries and practical business needs.
             </p>

@@ -41,7 +41,7 @@ export default function AdminLoginPage() {
   return (
     <div className="w-full max-w-md rounded-3xl border border-[color:var(--border)] bg-white/95 backdrop-blur p-8 shadow-[0_18px_40px_rgba(0,0,0,0.08)]">
       <div className="text-center">
-        <img src="/logo.svg" alt="Pembe Machinery" className="h-12 mx-auto" />
+        <img src="/logo.svg" alt="Nakuru Rollermill & Poshomill Center" className="h-12 mx-auto" />
 
         <h1 className="mt-5 text-2xl font-semibold text-[color:var(--pembe-purple)]">
           Admin Login

@@ -6,7 +6,7 @@ export default function Footer() {
       <div className="container-shell py-12 grid gap-10 md:grid-cols-4">
         <div>
           <div className="flex items-center gap-3">
-            <img src="/logo.svg" alt="Pembe Machinery" className="h-10 w-auto" />
+            <img src="/logo.svg" alt="Nakuru Rollermill & Poshomill Center" className="h-10 w-auto" />
           </div>
           <p className="mt-4 text-sm leading-7 text-[color:var(--text-muted)]">
             Quality agricultural and processing machinery, fabrication services,
@@ -48,7 +48,7 @@ export default function Footer() {
 
       <div className="border-t border-[color:var(--border)]">
         <div className="container-shell py-4 flex flex-col gap-2 sm:flex-row sm:justify-between text-sm text-[color:var(--text-muted)]">
-          <div>© {new Date().getFullYear()} Pembe Machinery. All rights reserved.</div>
+          <div>© {new Date().getFullYear()} Nakuru Rollermill & Poshomill Center. All rights reserved.</div>
           <div>Modern machinery sales and fabrication enquiries.</div>
         </div>
       </div>

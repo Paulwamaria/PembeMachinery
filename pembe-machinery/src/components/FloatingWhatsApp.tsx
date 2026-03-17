@@ -1,7 +1,15 @@
+import { COMPANY } from "@/lib/company";
+
 export default function FloatingWhatsApp() {
+  const message = "Hello, I would like a quote.";
+  const encodedMessage = encodeURIComponent(message);
+
+  const whatsappLink =
+    "https://wa.me/" + COMPANY.whatsapp + "?text=" + encodedMessage;
+
   return (
     <a
-      href="https://wa.me/254721772520?text=Hello%20Pembe%20Machinery,%20I%20would%20like%20a%20quote."
+      href={whatsappLink}
       target="_blank"
       rel="noopener noreferrer"
       className="fixed bottom-5 right-5 z-50 flex items-center gap-3 rounded-full border border-green-200 bg-white px-4 py-3 shadow-[0_12px_30px_rgba(0,0,0,0.14)] hover:scale-[1.02] transition"
@@ -18,8 +26,12 @@ export default function FloatingWhatsApp() {
       </div>
 
       <div className="hidden sm:block leading-tight">
-        <div className="text-sm font-semibold text-slate-900">Chat on WhatsApp</div>
-        <div className="text-xs text-slate-500">Usually replies quickly</div>
+        <div className="text-sm font-semibold text-slate-900">
+          Chat on WhatsApp
+        </div>
+        <div className="text-xs text-slate-500">
+          Usually replies quickly
+        </div>
       </div>
     </a>
   );

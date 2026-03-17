@@ -1,82 +1,79 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 700" role="img" aria-labelledby="title desc">
-  <title id="title">Pembe Machinery and Fabricator logo</title>
-  <desc id="desc">A purple gear with a magenta gazelle head and green swooshes, with the words Pembe Machinery and Fabricator.</desc>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 420" role="img" aria-labelledby="title desc">
+  <title id="title">Nakuru Rollermill &amp; PoshoMill Center logo</title>
+  <desc id="desc">Professional logo for a Pembe Machinery branch using purple, magenta, and green accents.</desc>
   <defs>
-    <linearGradient id="gazelleGrad" x1="0" y1="0" x2="0.9" y2="1">
-      <stop offset="0%" stop-color="#d11f86"/>
-      <stop offset="100%" stop-color="#8f0f7e"/>
+    <linearGradient id="purpleGrad" x1="0" x2="1">
+      <stop offset="0%" stop-color="#5A2399"/>
+      <stop offset="100%" stop-color="#6F3FB0"/>
     </linearGradient>
+    <linearGradient id="magentaGrad" x1="0" x2="1">
+      <stop offset="0%" stop-color="#8A006E"/>
+      <stop offset="50%" stop-color="#B0128C"/>
+      <stop offset="100%" stop-color="#D43AAE"/>
+    </linearGradient>
+    <linearGradient id="greenGrad" x1="0" x2="1">
+      <stop offset="0%" stop-color="#1F8F1F"/>
+      <stop offset="100%" stop-color="#2DBE2D"/>
+    </linearGradient>
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="#2E2E2E" flood-opacity=".18"/>
+    </filter>
     <style>
-      .brand { font-family: Georgia, "Times New Roman", serif; font-weight: 700; letter-spacing: 1px; }
-      .small { font-size: 72px; }
-      .big { font-size: 118px; }
+      .main{font-family: "Segoe UI", Arial, Helvetica, sans-serif; font-weight:800; letter-spacing:2px}
+      .sub{font-family: "Segoe UI", Arial, Helvetica, sans-serif; font-weight:700; letter-spacing:1.2px}
+      .tag{font-family: "Segoe UI", Arial, Helvetica, sans-serif; font-weight:600; letter-spacing:3px}
     </style>
   </defs>
 
-  <!-- background -->
-  <rect width="1400" height="700" fill="#ffffff"/>
+  <rect width="1200" height="420" fill="#F2F2F2"/>
 
-  <!-- gear -->
-  <g transform="translate(700 350)">
-    <circle r="178" fill="none" stroke="#5B2CA3" stroke-width="78"/>
-    <g fill="#5B2CA3">
-      <rect x="-42" y="-286" width="84" height="90" rx="8"/>
-      <rect x="-42" y="196" width="84" height="90" rx="8"/>
-      <rect x="-286" y="-42" width="90" height="84" rx="8"/>
-      <rect x="196" y="-42" width="90" height="84" rx="8"/>
+  <!-- emblem -->
+  <g transform="translate(70 45)" filter="url(#softShadow)">
+    <circle cx="130" cy="130" r="104" fill="white" stroke="url(#purpleGrad)" stroke-width="10"/>
+    <circle cx="130" cy="130" r="83" fill="none" stroke="url(#magentaGrad)" stroke-width="6" opacity=".95"/>
 
-      <rect x="-42" y="-286" width="84" height="90" rx="8" transform="rotate(45)"/>
-      <rect x="-42" y="-286" width="84" height="90" rx="8" transform="rotate(90)"/>
-      <rect x="-42" y="-286" width="84" height="90" rx="8" transform="rotate(135)"/>
-      <rect x="-42" y="-286" width="84" height="90" rx="8" transform="rotate(180)"/>
-      <rect x="-42" y="-286" width="84" height="90" rx="8" transform="rotate(225)"/>
-      <rect x="-42" y="-286" width="84" height="90" rx="8" transform="rotate(270)"/>
-      <rect x="-42" y="-286" width="84" height="90" rx="8" transform="rotate(315)"/>
+    <!-- gear -->
+    <g transform="translate(130 130)">
+      <g fill="url(#purpleGrad)" stroke="#2E2E2E" stroke-width="4">
+        <circle r="44"/>
+        <rect x="-8" y="-74" width="16" height="20" rx="3"/>
+        <rect x="-8" y="54" width="16" height="20" rx="3"/>
+        <rect x="54" y="-8" width="20" height="16" rx="3"/>
+        <rect x="-74" y="-8" width="20" height="16" rx="3"/>
+        <rect x="42" y="-60" width="16" height="20" rx="3" transform="rotate(45)"/>
+        <rect x="42" y="40" width="16" height="20" rx="3" transform="rotate(45)"/>
+        <rect x="-58" y="40" width="16" height="20" rx="3" transform="rotate(45)"/>
+        <rect x="-58" y="-60" width="16" height="20" rx="3" transform="rotate(45)"/>
+      </g>
+      <circle r="18" fill="#F2F2F2" stroke="#2E2E2E" stroke-width="4"/>
     </g>
 
-    <!-- white ring -->
-    <circle r="182" fill="none" stroke="#ffffff" stroke-width="24"/>
-
-    <!-- swooshes -->
-    <path d="M-308 -8 C-220 -75, -95 -90, 18 -56 C95 -34, 166 4, 308 0
-             L308 16 C180 12, 110 -2, 25 18 C-110 51, -219 38, -308 16 Z"
-          fill="#2DBE3F"/>
-    <path d="M-296 4 C-205 -30, -120 -24, -22 7 C86 42, 190 34, 296 12"
-          fill="none" stroke="#ffffff" stroke-width="18" stroke-linecap="round"/>
-
-    <!-- gazelle head -->
-    <g transform="translate(0 12)">
-      <path d="M-74 -104
-               C-48 -83, -36 -60, -33 -28
-               C-24 -62, -12 -79, 10 -98
-               C34 -118, 48 -145, 47 -172
-               C66 -147, 78 -122, 83 -90
-               C91 -43, 84 5, 57 59
-               C37 99, 13 126, -26 142
-               C-63 156, -98 154, -130 136
-               C-100 122, -83 95, -77 59
-               C-98 83, -115 95, -141 98
-               C-131 78, -122 55, -118 29
-               C-136 16, -146 3, -155 -20
-               C-136 -15, -121 -6, -106 8
-               C-109 -19, -107 -47, -102 -70
-               C-97 -92, -86 -106, -74 -104 Z"
-            fill="url(#gazelleGrad)" stroke="#5B2CA3" stroke-width="4"/>
-
-      <path d="M-2 26 C43 22, 74 44, 88 88" fill="none" stroke="#ffffff" stroke-width="10" stroke-linecap="round"/>
-      <path d="M65 -28 C50 -11, 49 19, 71 39" fill="none" stroke="#ffffff" stroke-width="8" stroke-linecap="round"/>
-      <path d="M18 102 C33 100, 43 108, 55 124" fill="none" stroke="#ffffff" stroke-width="8" stroke-linecap="round"/>
+    <!-- rollers -->
+    <g transform="translate(85 98)" stroke="#2E2E2E" stroke-width="4">
+      <rect x="0" y="0" width="90" height="18" rx="9" fill="#d8d8dc"/>
+      <rect x="0" y="26" width="90" height="18" rx="9" fill="#c7c7cc"/>
+      <rect x="0" y="52" width="90" height="18" rx="9" fill="#b7b7bc"/>
     </g>
+
+    <!-- wheat/leaf accents -->
+    <g stroke="url(#greenGrad)" fill="none" stroke-width="5" stroke-linecap="round">
+      <path d="M33 182 C8 155, 8 98, 38 62" />
+      <path d="M227 182 C252 155, 252 98, 222 62" />
+      <path d="M45 158 l-18 -8 M48 136 l-19 -10 M55 115 l-18 -10 M67 95 l-17 -10" />
+      <path d="M215 158 l18 -8 M212 136 l19 -10 M205 115 l18 -10 M193 95 l17 -10" />
+    </g>
+
+    <!-- motion lines -->
+    <path d="M42 228 C90 208, 170 208, 218 228" fill="none" stroke="url(#greenGrad)" stroke-width="8" stroke-linecap="round"/>
+    <path d="M64 240 C108 225, 152 225, 196 240" fill="none" stroke="url(#magentaGrad)" stroke-width="5" stroke-linecap="round"/>
   </g>
 
-  <!-- wordmark -->
-  <text x="85" y="394" class="brand big" fill="#5B2CA3">PEMBE</text>
-  <text x="760" y="394" class="brand big" fill="#5B2CA3">MACHINERY</text>
-  <text x="150" y="532" class="brand small" fill="#5B2CA3">AND</text>
-  <text x="815" y="532" class="brand small" fill="#5B2CA3">FABRICATOR</text>
-
-  <!-- subtle green rule -->
-  <path d="M154 305 C314 292, 414 293, 552 302" stroke="#2DBE3F" stroke-width="10" fill="none" stroke-linecap="round"/>
-  <path d="M848 305 C1002 300, 1122 301, 1263 307" stroke="#2DBE3F" stroke-width="10" fill="none" stroke-linecap="round"/>
+  <!-- text -->
+  <g transform="translate(320 118)" filter="url(#softShadow)">
+    <text class="main" x="0" y="88" font-size="74" fill="url(#purpleGrad)" stroke="#2E2E2E" stroke-width="2.2">NAKURU</text>
+    <rect x="1" y="108" width="780" height="54" rx="14" fill="#ffffff" stroke="url(#purpleGrad)" stroke-width="3"/>
+    <text class="sub" x="24" y="145" font-size="34" fill="url(#greenGrad)">ROLLERMILL &amp; POSHOMILL CENTER</text>
+    <text class="tag" x="4" y="204" font-size="22" fill="#2E2E2E">A PEMBE MACHINERY BRANCH</text>
+    <line x1="0" y1="218" x2="785" y2="218" stroke="url(#magentaGrad)" stroke-width="4" stroke-linecap="round"/>
+  </g>
 </svg>

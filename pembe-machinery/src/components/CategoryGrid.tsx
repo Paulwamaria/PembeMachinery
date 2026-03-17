@@ -17,7 +17,7 @@ export default function CategoryGrid() {
           <p className="section-kicker">Categories</p>
           <h2 className="section-title mt-2">Explore Machinery by Category</h2>
           <p className="mt-4 text-sm md:text-base leading-7 text-[color:var(--text-muted)]">
-            Quickly browse the main equipment lines available from Pembe Machinery.
+            Quickly browse the main equipment lines available from Nakuru Rollermill & Poshomill Center.
           </p>
         </div>
 

@@ -13,10 +13,10 @@ export default async function ProjectsPage() {
         {/* HEADER */}
         <section className="max-w-3xl">
           <p className="section-kicker">Projects & Work</p>
-          <h1 className="section-title mt-2">Projects by Pembe Machinery</h1>
+          <h1 className="section-title mt-2">Projects by Nakuru Rollermill & Poshomill Center</h1>
           <p className="mt-4 text-lg leading-8 text-slate-600">
             Explore machinery applications, fabrication capability, and examples
-            of the type of practical industrial work supported by Pembe Machinery.
+            of the type of practical industrial work supported by Nakuru Rollermill & Poshomill Center.
           </p>
         </section>
 

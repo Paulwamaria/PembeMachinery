@@ -1,9 +1,9 @@
 import "./globals.css";
 
 export const metadata = {
-  metadataBase: new URL("https://your-domain.com"),
-  title: "Pembe Machinery",
-  description: "Commercial machinery marketplace and quote platform.",
+  title: "Nakuru Rollermill & Poshomill Center",
+  description:
+    "Supplying rollermills, poshomills, fabrication and machinery solutions in Kenya.",
 };
 
 export default function RootLayout({

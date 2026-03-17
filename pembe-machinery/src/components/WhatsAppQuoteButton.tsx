@@ -10,7 +10,7 @@ export default function WhatsAppQuoteButton({
   const phone = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "254780404626";
 
   const message = [
-    "Hello Pembe Machinery,",
+    "Hello Nakuru Rollermill & Poshomill Center,",
     `I would like a quote for: ${productName}`,
     "Quantity: 1",
     "Location: ",

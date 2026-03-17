@@ -5,9 +5,9 @@ import PublicVideoEmbed from "@/components/PublicVideoEmbed";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Showcase Videos | Pembe Machinery",
+  title: "Showcase Videos | Nakuru Rollermill & Poshomill Center",
   description:
-    "Watch machine demos, fabrication work, and recent machinery showcase videos from Pembe Machinery.",
+    "Watch machine demos, fabrication work, and recent machinery showcase videos from Nakuru Rollermill & Poshomill Center.",
 };
 
 export default async function VideosPage() {
@@ -23,7 +23,7 @@ export default async function VideosPage() {
           <h1 className="section-title mt-2">Showcase Videos</h1>
           <p className="mt-3 text-slate-600">
             Watch machine demos, fabrication projects, and recent work highlights
-            from Pembe Machinery.
+            from Nakuru Rollermill & Poshomill Center.
           </p>
         </div>
       </section>

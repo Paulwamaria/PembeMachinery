@@ -12,10 +12,10 @@ export default async function AboutPage() {
       <div className="container-shell">
         <section className="max-w-3xl">
           <p className="section-kicker">About Us</p>
-          <h1 className="section-title mt-2">About Pembe Machinery</h1>
+          <h1 className="section-title mt-2">About Nakuru Rollermill & Poshomill Center</h1>
 
           <p className="mt-4 text-lg leading-8 text-slate-600">
-            Pembe Machinery delivers practical machinery solutions, fabrication
+            Nakuru Rollermill & Poshomill Center delivers practical machinery solutions, fabrication
             support, and reliable customer service for agricultural, commercial,
             and industrial operations across Kenya.
           </p>
@@ -28,7 +28,7 @@ export default async function AboutPage() {
             </h2>
 
             <p className="mt-4 leading-7 text-slate-600">
-              Pembe Machinery was founded to bridge the gap between dependable
+              Nakuru Rollermill & Poshomill Center was founded to bridge the gap between dependable
               machinery supply and practical fabrication support. Many
               businesses struggle to find durable equipment backed by responsive
               service, spare parts support, and clear guidance.
@@ -125,7 +125,7 @@ export default async function AboutPage() {
         </section>
 
         <section className="mt-20 rounded-[2rem] bg-slate-50 p-10">
-          <h2 className="section-title text-center">Why Choose Pembe Machinery</h2>
+          <h2 className="section-title text-center">Why Choose Nakuru Rollermill & Poshomill Center</h2>
 
           <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
             <div className="text-center">
@@ -173,7 +173,7 @@ export default async function AboutPage() {
               <h2 className="section-title mt-2">Catalogue Highlights</h2>
               <p className="mt-3 max-w-2xl text-slate-600">
                 A look at some of the machines and equipment available through
-                Pembe Machinery.
+                Nakuru Rollermill & Poshomill Center.
               </p>
             </div>
 
