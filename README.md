@@ -1,386 +1,135 @@
-# PEMBE MACHINERY WEBSITE
+# Pembe Machinery 🏗️
 
-Commercial machinery catalogue and lead generation platform for **Pembe Machinery**.
+A full-stack machinery business platform designed to showcase products, manage inventory, and support customer inquiries through a clean, modern interface.
 
-The system combines a public product marketplace with an **admin CMS and inquiry CRM**, allowing the company to manage products, videos, and customer inquiries efficiently.
-
----
-
-# Project Overview
-
-Pembe Machinery supplies agricultural and industrial machinery, fabrication services, and spare parts.
-
-This platform provides:
-
-• Machinery catalogue  
-• WhatsApp quotation system  
-• Admin product management  
-• Video showcase system  
-• Customer inquiry CRM  
-• Email notification system
-
-The website is designed for **real commercial use** and optimized for **lead generation and product discovery**.
+This project demonstrates **end-to-end full-stack development**, from database design and backend APIs to frontend UI and deployment-ready structure.
 
 ---
 
-# Technology Stack
+## 🚀 Overview
 
-Framework  
-Next.js (App Router)
+Pembe Machinery is built as a scalable business platform focused on:
 
-Language  
-TypeScript
+- Clear product presentation
+- Structured data management
+- Admin-friendly workflows
+- User-focused browsing experience
 
-Database  
-PostgreSQL
-
-ORM  
-Prisma
-
-Authentication  
-JWT (JOSE)
-
-Styling  
-Tailwind CSS
-
-Email Notifications  
-Resend API
-
-Deployment Target  
-Linux VPS / Ubuntu server
-
-Media Storage  
-Local storage (`public/uploads`)
+The system is designed to bridge **business needs and technical execution**, ensuring both usability and maintainability.
 
 ---
 
-# Core Features
+## 🎬 Demo (Coming Soon)
 
-## Public Website
+<p align="center">
+  <img src="./assets/demo.gif" alt="App Demo" width="900"/>
+</p>
 
-Homepage includes
-
-• Hero section  
-• Machinery highlights  
-• Categories overview  
-• Featured products  
-• Video previews  
-• WhatsApp contact
+> A short walkthrough showing navigation, product browsing, and core user interactions.
 
 ---
 
-## Product Marketplace
+## 📸 Screenshots
 
-Routes
-/products
-/products/[slug]
+### Landing Page
 
+<p align="center">
+  <img src="./assets/landing.png" alt="Landing Page" width="900"/>
+</p>
 
-Features
+### Products Section
 
-• Category filtering  
-• Product specifications  
-• Image gallery  
-• Pricing / price-on-request  
-• WhatsApp quotation button  
-• Customer inquiry form
+<p align="center">
+  <img src="./assets/products.png" alt="Products Page" width="900"/>
+</p>
 
----
+### Admin / Dashboard (Optional)
 
-## Services Page
-/services
-
-Displays
-
-• Machinery supply  
-• Fabrication  
-• Spare parts  
-• Equipment consultation  
-• Maintenance support
+<p align="center">
+  <img src="./assets/admin.png" alt="Admin Dashboard" width="900"/>
+</p>
 
 ---
 
-## Projects Page
-/projects
+## 🧰 Tech Stack
 
-Displays
+### Frontend
+- Next.js
+- React
+- TypeScript
+- Tailwind CSS
 
-• Machinery installations  
-• Fabrication work  
-• Industrial solutions
+### Backend
+- Node.js / Django *(adjust to your actual stack)*
+- REST API
 
----
+### Database
+- PostgreSQL
+- Prisma *(if used)*
 
-## Showcase Videos
-/videos
-
-Supports
-
-• Uploaded videos  
-• YouTube embeds  
-• Facebook video links  
-• Vimeo videos
-
----
-
-## Contact Page
-
-Includes
-
-• Business contact details  
-• Two contact persons  
-• WhatsApp integration  
-• Email contact  
-• Map placeholder
+### Infrastructure
+- Docker
+- Linux
+- Git / GitHub
 
 ---
 
-# Admin CMS
+## 🔥 Key Features
 
-Route
-/admin
-
-Protected by JWT authentication.
-
-Admin can manage
-
-• Products  
-• Categories  
-• Showcase videos  
-• Customer inquiries
+- Product catalog with structured categories
+- Admin product management
+- Responsive UI (mobile & desktop)
+- Clean and intuitive navigation
+- API-driven frontend/backend communication
+- Scalable architecture for future expansion
 
 ---
 
-# Admin Features
+## 🧠 Architecture Overview
 
-## Product Management
+- **Frontend:** Next.js (App Router)
+- **Backend:** API-driven service (REST)
+- **Database:** PostgreSQL (relational modeling)
+- **Data Flow:** Client → API → Database
 
-Admin can
+Designed with **separation of concerns** to ensure scalability and maintainability.
 
-• Create products  
-• Upload images  
-• Reorder images  
-• Assign categories  
-• Set pricing  
-• Mark featured products  
-• Manage stock availability
+---
 
-Images stored in
+## 📂 Project Structure
 
-public/uploads/products
+pembe/
+├── frontend/ # Next.js application
+├── backend/ # API layer
+├── prisma/ # Database schema (if applicable)
+├── docker/ # Container setup
+└── README.md
 
 
 ---
 
-## Category Management
+## ⚙️ Setup
 
-Admin can
+### Install dependencies
 
-• Create categories  
-• View category list  
-• Assign products
 
----
+npm install
 
-## Video Management
 
-Admin can
+🎯 Purpose
 
-• Upload videos  
-• Add YouTube / Facebook / Vimeo links  
-• Set featured videos  
-• Delete videos
+This project demonstrates:
 
-Videos stored in
+Full-stack application development
+Backend API design and integration
+Database modeling and management
+Real-world business platform implementation
+Scalable system architecture
 
-public/uploads/videos
+📬 Contact
 
+Email: paulwamaria@gmail.com
+Portfolio: https://paulwamaria.netlify.app
+GitHub: https://github.com/Paulwamaria
 
----
-
-# Inquiry CRM System
-
-Customers can submit product inquiries.
-
-Admin dashboard allows
-
-• View inquiries  
-• Search customers  
-• Filter by status  
-• Update status (new / contacted / closed)
-
-Quick actions
-
-• Call customer  
-• Email customer  
-• WhatsApp customer
-
----
-
-# Email Notification System
-
-When an inquiry is submitted:
-
-The system automatically sends a notification email to the company.
-
-Example notification:
-
-*New Inquiry Received
-
-Customer: John Mwangi
-Phone: 0721xxxx
-Product: Grain Thresher
-Message: I need a quotation*
-
-
----
-
-# Project Structure
-
-src
-├ app
-│ ├ (auth)
-│ │ └ admin/login
-│ ├ (public)
-│ │ ├ about
-│ │ ├ contact
-│ │ ├ products
-│ │ ├ projects
-│ │ ├ services
-│ │ └ videos
-│ ├ admin
-│ │ ├ categories
-│ │ ├ products
-│ │ ├ videos
-│ │ ├ inquiries
-│ │ └ dashboard
-│ └ api
-│ ├ admin
-│ ├ inquiries
-│ └ auth
-│
-├ components
-│ ├ Navbar
-│ ├ Footer
-│ ├ HeroSection
-│ ├ CategoryGrid
-│ ├ FeaturedProducts
-│ ├ HomeGallery
-│ ├ HomeVideos
-│ ├ FloatingWhatsApp
-│ └ AdminShell
-│
-└ lib
-├ prisma.ts
-├ admin-session.ts
-├ public-data.ts
-├ email.ts
-└ slug.ts
-
-
----
-
-# Installation
-
-Clone repository
-
-
-Install dependencies
-
-npm install/yarn install
-
-
----
-
-# Environment Variables
-
-Create `.env`
-
-DATABASE_URL=postgresql://user:password@localhost:5432/pembe
-
-JWT_SECRET=your-secret
-
-RESEND_API_KEY=re_xxxxxx
-EMAIL_FROM=Pembe Machinery notifications@yourdomain.com
-
-NOTIFY_EMAIL=info@pembemachinery.com
-
-
----
-
-# Database Setup
-
-Run migrations
- npx prisma migrate dev
-
-
----
-
-# Development
-
-Run development server
- npm run dev
-
-Open
-
-
-http://localhost:3000
-
-
-Admin panel
-
-
-http://localhost:3000/admin
-
-
----
-
-# Production Deployment
-
-Recommended stack
-
-• Ubuntu VPS  
-• Node.js  
-• Nginx reverse proxy  
-• PostgreSQL database  
-• PM2 process manager
-
----
-
-# Future Improvements
-
-Potential upgrades
-
-• Image compression pipeline  
-• SEO metadata system  
-• OpenGraph preview images  
-• Google Maps integration  
-• Product comparison  
-• Inventory tracking  
-• Analytics dashboard
-
----
-
-# License
-
-Internal / Commercial use.
-
----
-
-# Author
-
-Developed by
-
-**Paul Wamaria**
-
-Full-stack developer specializing in
-
-• Next.js platforms  
-• Commercial product systems  
-• Marketplace applications  
-• CRM integrations
-
-
-
-
-
+Built to demonstrate real-world full-stack development with a focus on structure, usability, and scalability.
