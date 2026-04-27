@@ -34,19 +34,19 @@ The system is designed to bridge **business needs and technical execution**, ens
 ### Landing Page
 
 <p align="center">
-  <img src="./assets/landing.png" alt="Landing Page" width="900"/>
+  <img src="./pembe-machinery/src/assets/landing.png" alt="Landing Page" width="900"/>
 </p>
 
 ### Products Section
 
 <p align="center">
-  <img src="./assets/products.png" alt="Products Page" width="900"/>
+  <img src="./pembe-machinery/src/assets/products.png" alt="Products Page" width="900"/>
 </p>
 
 ### Admin / Dashboard (Optional)
 
 <p align="center">
-  <img src="./assets/admin.png" alt="Admin Dashboard" width="900"/>
+  <img src="./pembe-machinery/src/assets/admin.png" alt="Admin Dashboard" width="900"/>
 </p>
 
 ---
